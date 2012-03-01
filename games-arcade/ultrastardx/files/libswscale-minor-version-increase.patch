@@ -1,0 +1,11 @@
+--- src/lib/ffmpeg/swscale.pas.old	2009-05-22 15:00:25.000000000 +0200
++++ src/lib/ffmpeg/swscale.pas	2009-05-22 15:00:36.000000000 +0200
+@@ -50,7 +50,7 @@
+ const
+   (* Max. supported version by this header *)
+   LIBSWSCALE_MAX_VERSION_MAJOR   = 0;
+-  LIBSWSCALE_MAX_VERSION_MINOR   = 6;
++  LIBSWSCALE_MAX_VERSION_MINOR   = 7;
+   LIBSWSCALE_MAX_VERSION_RELEASE = 1;
+   LIBSWSCALE_MAX_VERSION = (LIBSWSCALE_MAX_VERSION_MAJOR * VERSION_MAJOR) +
+                            (LIBSWSCALE_MAX_VERSION_MINOR * VERSION_MINOR) +

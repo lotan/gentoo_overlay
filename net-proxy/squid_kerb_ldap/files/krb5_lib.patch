@@ -1,0 +1,11 @@
+--- configure.bak	2012-02-16 14:00:09.188251762 +0100
++++ configure	2012-02-16 14:00:17.262196741 +0100
+@@ -6075,7 +6075,7 @@
+ with_arg="no"
+ check_ldap() {
+        sys=`uname`
+-       ac_ldap_libs="lber ldap"
++       ac_ldap_libs="lber ldap krb5"
+        ac_ldap_includedir=""
+        ac_ldap_libdir=""
+        if test "x$withval" != "xyes" -a "x$withval" != "x" ; then

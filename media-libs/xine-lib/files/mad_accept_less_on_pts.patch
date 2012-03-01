@@ -1,0 +1,11 @@
+--- src/libmad/xine_mad_decoder.c.old   2010-07-17 20:00:54.000000000 +0200
++++ src/libmad/xine_mad_decoder.c       2010-07-17 20:02:10.000000000 +0200
+@@ -190,7 +190,7 @@
+     mad_stream_buffer (&this->stream, this->buffer,
+                       this->bytes_in_buffer);
+ 
+-    if (this->bytes_in_buffer < MAD_MIN_SIZE)
++    if (this->bytes_in_buffer < MAD_MIN_SIZE && buf->pts == 0)
+       return;
+ 
+     if (!this->needs_more_data) {

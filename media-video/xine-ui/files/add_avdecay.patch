@@ -1,0 +1,72 @@
+--- src/xitk/main.c.old	2011-01-02 22:48:30.081738726 +0100
++++ src/xitk/main.c	2011-01-02 22:52:49.922854033 +0100
+@@ -103,6 +103,7 @@
+ #define OPTION_BUG_REPORT       1013
+ #define OPTION_NETWORK_PORT     1014
+ #define OPTION_NO_MOUSE         1015
++#define OPTION_AVDECAY          1016
+ 
+ 
+ /* options args */
+@@ -169,6 +170,7 @@
+   {"list-plugins"   , optional_argument, 0, OPTION_LIST_PLUGINS      },
+   {"bug-report"     , optional_argument, 0, OPTION_BUG_REPORT        },
+   {"no-gui"         , no_argument      , 0, 'I'                      },
++  {"avdecay"        , required_argument, 0, OPTION_AVDECAY           },
+   {0                , no_argument      , 0, 0                        }
+ };
+ 
+@@ -711,6 +713,8 @@
+ 	   "                                 BUG-REPORT.TXT.\n"
+ 	   "                                 If <mrl> is given, xine will play the mrl\n"
+ 	   "                                 then quit (like -pq).\n"));
++  printf(_("      --avdecay <pts>          Specify initially how many pts video should\n"
++      "                               be ahead (positive) or behind (negative) audio.\n"));
+   printf("\n\n");
+   printf(_("examples for valid MRLs (media resource locator):\n"
+ 	   "  File:  'path/foo.vob'\n"
+@@ -1406,6 +1410,7 @@
+   int                     session_argv_num = 0;
+   int                     retval           = 0;
+   pthread_mutexattr_t     mutexattr;
++  int                     avdecay          = 0;
+   
+   /* Set stdout always line buffered to get every     */
+   /* message line immediately, needed esp. for stdctl */
+@@ -1915,7 +1920,16 @@
+ 	exit(1);
+       }
+       break;
+-      
++    case OPTION_AVDECAY:
++      if(optarg != NULL) {
++        sscanf(optarg, "%i", &avdecay);
++      }
++      else {
++	  fprintf(stderr, _("pts required for --avdecay option\n"));
++	  exit(1);
++      }
++      break;
++
+     default:
+       show_usage();
+       fprintf(stderr, _("invalid argument %d => exit\n"), c);
+@@ -2251,6 +2265,18 @@
+ 
+   xine_set_param(gGui->stream, XINE_PARAM_VO_ASPECT_RATIO, aspect_ratio);
+         
++  /* apply avdecay if specified */
++  if (avdecay != 0) {
++    int av_offset = (xine_get_param(gGui->stream, XINE_PARAM_AV_OFFSET) + avdecay);
++
++    gGui->mmk.av_offset = av_offset;
++    if (gGui->playlist.num && gGui->playlist.cur >= 0 && gGui->playlist.mmk &&
++      gGui->playlist.mmk[gGui->playlist.cur])
++    if (gGui->playlist.cur < gGui->playlist.num)
++      gGui->playlist.mmk[gGui->playlist.cur]->av_offset = av_offset;
++    xine_set_param(gGui->stream, XINE_PARAM_AV_OFFSET, av_offset);
++  }
++
+   /*
+    * hand control over to gui
+    */

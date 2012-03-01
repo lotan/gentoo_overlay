@@ -1,0 +1,64 @@
+fix some compile warnings with gcc-4.2.x
+
+Joerg Bornkessel <hd_brummy@gentoo.org> 2007 Sep 04
+Matthias Schwarzott <zzam@gentoo.org> 2007 Sep 04
+Index: xine-0.7.11/xineLib.c
+===================================================================
+--- xine-0.7.11.orig/xineLib.c
++++ xine-0.7.11/xineLib.c
+@@ -2273,9 +2273,9 @@ namespace PluginXine
+ 
+   int cXineLib::xwrite(int f, const void *b, int n)
+   {
+-    char *yyy[] = { "i", "I", "d", "D" };
++    const char *yyy[] = { "i", "I", "d", "D" };
+ //    char *yyy[] = { "", "", "d", "D" };
+-    char **xxx = yyy;
++    const char **xxx = yyy;
+     if (f == fd_fifo0)
+       xxx += 2;
+ 
+Index: xine-0.7.11/xineSettings.c
+===================================================================
+--- xine-0.7.11.orig/xineSettings.c
++++ xine-0.7.11/xineSettings.c
+@@ -514,7 +514,7 @@ namespace PluginXine
+     setupPage->SetupStore("image16:9.zoomY", m_zoomParams[ image16_9 ].m_zoomY);
+ 
+     {
+-      char *mode = 0;
++      const char *mode = 0;
+ 
+       switch (m_osdMode)
+       {
+@@ -537,7 +537,7 @@ namespace PluginXine
+ #endif
+ 
+     {
+-      char *mode = 0;
++      const char *mode = 0;
+ 
+       switch (m_volumeMode)
+       {
+@@ -550,7 +550,7 @@ namespace PluginXine
+     }
+ 
+     {
+-      char *mode = 0;
++      const char *mode = 0;
+ 
+       switch (m_muteMode)
+       {
+Index: xine-0.7.11/xineplayer.c
+===================================================================
+--- xine-0.7.11.orig/xineplayer.c
++++ xine-0.7.11/xineplayer.c
+@@ -6,7 +6,7 @@
+ static int fdControl = -1;
+ static int fdResult = -1;
+ 
+-bool writeString(char *s)
++bool writeString(const char *s)
+ {
+   int l = ::strlen(s);
+ 

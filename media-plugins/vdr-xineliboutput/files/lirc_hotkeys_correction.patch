@@ -1,0 +1,16 @@
+--- xineliboutput-1.0.5/xine_frontend_lirc.c.old	2010-03-01 16:10:29.395897155 +0100
++++ xineliboutput-1.0.5/xine_frontend_lirc.c	2010-03-01 16:12:10.286126217 +0100
+@@ -190,11 +190,11 @@
+ 	LastTime = time_ms();
+ 
+ #if defined(XINELIBOUTPUT_FE_TOGGLE_FULLSCREEN) || defined(INTERPRET_LIRC_KEYS)
+-        if(!strcmp(KeyName, "Quit")) {
++        if(!strcmp(KeyName, "power")) {
+           terminate_key_pressed = 1;
+           break;
+ # ifndef IS_FBFE
+-        } else if(!strcmp(KeyName, "Fullscreen")) {
++        } else if(!strcmp(KeyName, "max_window")) {
+           if(!repeat)
+             sxfe_toggle_fullscreen((sxfe_t*)fe);
+ # endif

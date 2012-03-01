@@ -1,0 +1,55 @@
+diff -Naur verynice-fork-9999.old/Makefile verynice-fork-9999/Makefile
+--- verynice-fork-9999.old/Makefile	2012-01-13 17:56:05.439071655 +0100
++++ verynice-fork-9999/Makefile	2012-01-13 17:59:59.375232625 +0100
+@@ -64,11 +64,6 @@
+ 	  	$(INSTALL) -m 644 $(PKGNAME).conf $(RPM_BUILD_ROOT)$(PREFIX)/etc/$(PKGNAME).conf ; \
+ 	  fi \
+ 	fi
+-	$(INSTALL) -d $(RPM_BUILD_ROOT)$(PREFIX)/share
+-	$(INSTALL) -d $(RPM_BUILD_ROOT)$(PREFIX)/share/doc
+-	$(INSTALL) -d $(RPM_BUILD_ROOT)$(PREFIX)/share/doc/$(PKGNAME)-$(VERSION)
+-	$(INSTALL) -m 644 README $(RPM_BUILD_ROOT)$(PREFIX)/share/doc/$(PKGNAME)-$(VERSION)
+-	$(INSTALL) -m 644 COPYING $(RPM_BUILD_ROOT)$(PREFIX)/share/doc/$(PKGNAME)-$(VERSION)
+ 	if [[ "$(INIT_FILE)" ]]; then \
+ 	   $(INSTALL) -D -m 755 $(INIT_FILE) $(RPM_BUILD_ROOT)$(INIT_SYS)/$(PKGNAME) ; \
+ 	fi
+diff -Naur verynice-fork-9999.old/verynice.init.gentoo verynice-fork-9999/verynice.init.gentoo
+--- verynice-fork-9999.old/verynice.init.gentoo	1970-01-01 01:00:00.000000000 +0100
++++ verynice-fork-9999/verynice.init.gentoo	2012-01-13 17:56:05.978067389 +0100
+@@ -0,0 +1,36 @@
++#!/sbin/runscript
++
++description='Start/stop the verynice daemon'
++extra_started_commands='dump reload'
++description_dump='Dump the config and state of the daemon (to syslog)'
++description_reload='Reload the daemon'
++
++PIDFILE="/var/run/verynice.pid"
++
++dump() {
++	ebegin "Dumping VeryNice database to syslog: "
++	kill -USR1 $(cat ${PIDFILE})
++	eend ${?}
++}
++
++reload() {
++	ebegin "Rereading VeryNice configuration: "
++	kill -USR2 $(cat ${PIDFILE})
++	eend ${?}
++}
++
++start() {
++	local ionice
++
++	ebegin "Starting VeryNice"
++	start-stop-daemon --start --quiet --background \
++		--make-pidfile --pidfile ${PIDFILE} \
++		--exec /usr/sbin/verynice
++	eend ${?}
++}
++
++stop() {
++	ebegin "Stopping VeryNice"
++	start-stop-daemon --stop --retry 120 --quiet --pidfile ${PIDFILE}
++	eend ${?}
++}

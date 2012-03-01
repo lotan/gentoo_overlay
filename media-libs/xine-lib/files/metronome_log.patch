@@ -1,0 +1,13 @@
+--- src/xine-engine/metronom.c.old	2010-12-15 11:33:28.931385209 +0100
++++ src/xine-engine/metronom.c	2010-12-15 11:33:39.066812296 +0100
+@@ -33,10 +33,8 @@
+ 
+ #define LOG_MODULE "metronom"
+ #define LOG_VERBOSE
+-/*
+ #define LOG
+ #define LOG_AUDIO
+-*/
+ #define METRONOM_INTERNAL
+ #define METRONOM_CLOCK_INTERNAL
+ 

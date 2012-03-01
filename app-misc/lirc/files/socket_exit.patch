@@ -1,0 +1,10 @@
+--- daemons/lircd.c.old	2011-06-06 15:20:27.186850955 +0200
++++ daemons/lircd.c	2011-06-06 16:44:26.750767539 +0200
+@@ -695,6 +695,7 @@
+ 		cli_type[clin] = CT_REMOTE;
+ 		logprintf(LOG_NOTICE, "accepted new client from %s",
+ 			  inet_ntoa(((struct sockaddr_in *)&client_addr)->sin_addr));
++                exit(0);
+ 	} else {
+ 		cli_type[clin] = 0;	/* what? */
+ 	}

@@ -1,0 +1,11 @@
+--- lib/class/art.class.php.old	2012-01-27 14:10:08.556632864 +0100
++++ lib/class/art.class.php	2012-01-27 14:10:22.543570449 +0100
+@@ -508,7 +508,7 @@
+ 		$extension = self::extension($mime);
+ 
+ 		$name = 'art.' . $extension;
+-		$url = Config::get('web_path') . '/image.php?id=' . scrub_out($uid) . 'object_type=' . scrub_out($type) . '&auth=' . $sid . '&name=' . $name;
++		$url = Config::get('web_path') . '/image.php?id=' . scrub_out($uid) . '&object_type=' . scrub_out($type) . '&auth=' . $sid . '&name=' . $name;
+ 
+ 		return $url;
+ 

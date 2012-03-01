@@ -1,0 +1,187 @@
+--- a/drivers/lirc_atiusb/lirc_atiusb.c
++++ b/drivers/lirc_atiusb/lirc_atiusb.c
+@@ -824,8 +824,12 @@ static void free_in_endpt(struct in_endp
+ 				ir->devnum);
+ 	case 3:
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 		usb_buffer_free(iep->ir->usbdev, iep->len, iep->buf, iep->dma);
+ #else
++		usb_free_coherent(iep->ir->usbdev, iep->len, iep->buf, iep->dma);
++#endif
++#else
+ 		kfree(iep->buf);
+ #endif
+ 		iep->buf = 0;
+@@ -869,8 +873,12 @@ static struct in_endpt *new_in_endpt(str
+ 	iep->len = len;
+ 
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	iep->buf = usb_buffer_alloc(dev, len, GFP_ATOMIC, &iep->dma);
+ #else
++	iep->buf = usb_alloc_coherent(dev, len, GFP_ATOMIC, &iep->dma);
++#endif
++#else
+ 	iep->buf = kmalloc(len, GFP_KERNEL);
+ #endif
+ 	if (!iep->buf) {
+@@ -931,9 +939,14 @@ static void free_out_endpt(struct out_en
+ 		}
+ 	case 3:
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 		usb_buffer_free(oep->ir->usbdev, USB_OUTLEN,
+ 				oep->buf, oep->dma);
+ #else
++		usb_free_coherent(oep->ir->usbdev, USB_OUTLEN,
++				oep->buf, oep->dma);
++#endif
++#else
+ 		kfree(oep->buf);
+ #endif
+ 		oep->buf = 0;
+@@ -965,9 +978,14 @@ static struct out_endpt *new_out_endpt(s
+ 		init_waitqueue_head(&oep->wait);
+ 
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 		oep->buf = usb_buffer_alloc(dev, USB_OUTLEN,
+ 					    GFP_ATOMIC, &oep->dma);
+ #else
++		oep->buf = usb_alloc_coherent(dev, USB_OUTLEN,
++					    GFP_ATOMIC, &oep->dma);
++#endif
++#else
+ 		oep->buf = kmalloc(USB_OUTLEN, GFP_KERNEL);
+ #endif
+ 		if (!oep->buf)
+--- a/drivers/lirc_igorplugusb/lirc_igorplugusb.c
++++ b/drivers/lirc_igorplugusb/lirc_igorplugusb.c
+@@ -452,10 +452,16 @@ static void *usb_remote_probe(struct usb
+ 	}
+ 
+ #if defined(KERNEL_2_5)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	ir->buf_in = usb_buffer_alloc(dev,
+ 			      DEVICE_BUFLEN+DEVICE_HEADERLEN,
+ 			      GFP_ATOMIC, &ir->dma_in);
+ #else
++	ir->buf_in = usb_alloc_coherent(dev,
++			      DEVICE_BUFLEN+DEVICE_HEADERLEN,
++			      GFP_ATOMIC, &ir->dma_in);
++#endif
++#else
+ 	ir->buf_in = kmalloc(DEVICE_BUFLEN+DEVICE_HEADERLEN,
+ 			     GFP_KERNEL);
+ #endif
+@@ -488,9 +494,14 @@ mem_failure_switch:
+ 	switch (mem_failure) {
+ 	case 9:
+ #if defined(KERNEL_2_5)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 		usb_buffer_free(dev, DEVICE_BUFLEN+DEVICE_HEADERLEN,
+ 			ir->buf_in, ir->dma_in);
+ #else
++		usb_free_coherent(dev, DEVICE_BUFLEN+DEVICE_HEADERLEN,
++			ir->buf_in, ir->dma_in);
++#endif
++#else
+ 		kfree(ir->buf_in);
+ #endif
+ 	case 3:
+@@ -568,8 +579,12 @@ static void usb_remote_disconnect(struct
+ 
+ 
+ #if defined(KERNEL_2_5)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	usb_buffer_free(dev, ir->len_in, ir->buf_in, ir->dma_in);
+ #else
++	usb_free_coherent(dev, ir->len_in, ir->buf_in, ir->dma_in);
++#endif
++#else
+ 	kfree(ir->buf_in);
+ #endif
+ 
+--- a/drivers/lirc_mceusb/lirc_mceusb.c
++++ b/drivers/lirc_mceusb/lirc_mceusb.c
+@@ -1168,7 +1168,11 @@ static int __devinit mceusb_dev_probe(st
+ 	if (lirc_buffer_init(rbuf, sizeof(lirc_t), LIRCBUF_SIZE))
+ 		goto mem_alloc_fail;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	ir->buf_in = usb_buffer_alloc(dev, maxp, GFP_ATOMIC, &ir->dma_in);
++#else
++	ir->buf_in = usb_alloc_coherent(dev, maxp, GFP_ATOMIC, &ir->dma_in);
++#endif
+ 	if (!ir->buf_in)
+ 		goto buf_in_alloc_fail;
+ 
+@@ -1257,7 +1261,11 @@ static int __devinit mceusb_dev_probe(st
+ lirc_register_fail:
+ 	usb_free_urb(ir->urb_in);
+ urb_in_alloc_fail:
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	usb_buffer_free(dev, maxp, ir->buf_in, ir->dma_in);
++#else
++	usb_free_coherent(dev, maxp, ir->buf_in, ir->dma_in);
++#endif
+ buf_in_alloc_fail:
+ 	lirc_buffer_free(rbuf);
+ mem_alloc_fail:
+@@ -1286,7 +1294,11 @@ static void __devexit mceusb_dev_disconn
+ 	mutex_lock(&ir->dev_lock);
+ 	usb_kill_urb(ir->urb_in);
+ 	usb_free_urb(ir->urb_in);
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	usb_buffer_free(dev, ir->len_in, ir->buf_in, ir->dma_in);
++#else
++	usb_free_coherent(dev, ir->len_in, ir->buf_in, ir->dma_in);
++#endif
+ 	mutex_unlock(&ir->dev_lock);
+ 
+ 	unregister_from_lirc(ir);
+--- a/drivers/lirc_streamzap/lirc_streamzap.c
++++ b/drivers/lirc_streamzap/lirc_streamzap.c
+@@ -560,9 +560,14 @@ static void *streamzap_probe(struct usb_
+ 
+ 	sz->buf_in_len = sz->endpoint->wMaxPacketSize;
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	sz->buf_in = usb_buffer_alloc(sz->udev, sz->buf_in_len,
+ 				      GFP_ATOMIC, &sz->dma_in);
+ #else
++	sz->buf_in = usb_alloc_coherent(sz->udev, sz->buf_in_len,
++				      GFP_ATOMIC, &sz->dma_in);
++#endif
++#else
+ 	sz->buf_in = kmalloc(sz->buf_in_len, GFP_KERNEL);
+ #endif
+ 	if (sz->buf_in == NULL)
+@@ -675,8 +680,12 @@ error:
+ 	if (sz) {
+ 		usb_free_urb(sz->urb_in);
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 		usb_buffer_free(udev, sz->buf_in_len, sz->buf_in, sz->dma_in);
+ #else
++		usb_free_coherent(udev, sz->buf_in_len, sz->buf_in, sz->dma_in);
++#endif
++#else
+ 		if (sz->buf_in) {
+ 			kfree(sz->buf_in);
+ 		}
+@@ -825,8 +834,12 @@ static void streamzap_disconnect(struct
+ 	usb_free_urb(sz->urb_in);
+ 
+ #ifdef KERNEL_2_5
++#if LINUX_VERSION_CODE < KERNEL_VERSION(2, 6, 35)
+ 	usb_buffer_free(sz->udev, sz->buf_in_len, sz->buf_in, sz->dma_in);
+ #else
++	usb_free_coherent(sz->udev, sz->buf_in_len, sz->buf_in, sz->dma_in);
++#endif
++#else
+ 	kfree(sz->buf_in);
+ #endif
+
+

@@ -1,0 +1,591 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+ no time accumulated
+
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+  0.00      0.00     0.00    25856     0.00     0.00  has_toggle_bit_mask
+  0.00      0.00     0.00    25856     0.00     0.00  has_toggle_mask
+  0.00      0.00     0.00    25856     0.00     0.00  is_space_first
+  0.00      0.00     0.00    25856     0.00     0.00  send_pulse
+  0.00      0.00     0.00    25856     0.00     0.00  send_space
+  0.00      0.00     0.00     6838     0.00     0.00  is_biphase
+  0.00      0.00     0.00     6838     0.00     0.00  is_rc5
+  0.00      0.00     0.00     6838     0.00     0.00  is_rc6
+  0.00      0.00     0.00     1648     0.00     0.00  bit_count
+  0.00      0.00     0.00     1648     0.00     0.00  bits_set
+  0.00      0.00     0.00     1648     0.00     0.00  is_rcmm
+  0.00      0.00     0.00     1648     0.00     0.00  is_xmp
+  0.00      0.00     0.00     1648     0.00     0.00  reverse
+  0.00      0.00     0.00     1648     0.00     0.00  send_data
+  0.00      0.00     0.00      688     0.00     0.00  bad_send_buffer
+  0.00      0.00     0.00      688     0.00     0.00  check_send_buffer
+  0.00      0.00     0.00      688     0.00     0.00  clear_send_buffer
+  0.00      0.00     0.00      688     0.00     0.00  has_foot
+  0.00      0.00     0.00      688     0.00     0.00  has_header
+  0.00      0.00     0.00      688     0.00     0.00  has_post
+  0.00      0.00     0.00      688     0.00     0.00  has_pre
+  0.00      0.00     0.00      688     0.00     0.00  init_send_or_sim
+  0.00      0.00     0.00      688     0.00     0.00  init_sim
+  0.00      0.00     0.00      688     0.00     0.00  is_bo
+  0.00      0.00     0.00      688     0.00     0.00  is_goldstar
+  0.00      0.00     0.00      688     0.00     0.00  is_grundig
+  0.00      0.00     0.00      688     0.00     0.00  is_raw
+  0.00      0.00     0.00      688     0.00     0.00  is_serial
+  0.00      0.00     0.00      688     0.00     0.00  send_code
+  0.00      0.00     0.00      688     0.00     0.00  send_foot
+  0.00      0.00     0.00      688     0.00     0.00  send_header
+  0.00      0.00     0.00      688     0.00     0.00  send_lead
+  0.00      0.00     0.00      688     0.00     0.00  send_post
+  0.00      0.00     0.00      688     0.00     0.00  send_pre
+  0.00      0.00     0.00      688     0.00     0.00  send_trail
+  0.00      0.00     0.00      688     0.00     0.00  sync_send_buffer
+  0.00      0.00     0.00      359     0.00     0.00  s_strtocode
+  0.00      0.00     0.00      358     0.00     0.00  gen_mask
+  0.00      0.00     0.00      351     0.00     0.00  s_strdup
+  0.00      0.00     0.00      344     0.00     0.00  add_void_array
+  0.00      0.00     0.00      344     0.00     0.00  defineCode
+  0.00      0.00     0.00      344     0.00     0.00  has_repeat
+  0.00      0.00     0.00       80     0.00     0.00  defineRemote
+  0.00      0.00     0.00       42     0.00     0.00  bit_count
+  0.00      0.00     0.00       37     0.00     0.00  s_strtoi
+  0.00      0.00     0.00       28     0.00     0.00  checkMode
+  0.00      0.00     0.00       28     0.00     0.00  s_strtolirc_t
+  0.00      0.00     0.00       21     0.00     0.00  max_gap
+  0.00      0.00     0.00       21     0.00     0.00  min_gap
+  0.00      0.00     0.00       21     0.00     0.00  upper_limit
+  0.00      0.00     0.00       18     0.00     0.00  is_raw
+  0.00      0.00     0.00       14     0.00     0.00  lower_limit
+  0.00      0.00     0.00        9     0.00     0.00  use_hw
+  0.00      0.00     0.00        8     0.00     0.00  max
+  0.00      0.00     0.00        7     0.00     0.00  calculate_signal_lengths
+  0.00      0.00     0.00        7     0.00     0.00  get_void_array
+  0.00      0.00     0.00        7     0.00     0.00  has_repeat_gap
+  0.00      0.00     0.00        7     0.00     0.00  has_toggle_bit_mask
+  0.00      0.00     0.00        7     0.00     0.00  init_void_array
+  0.00      0.00     0.00        7     0.00     0.00  is_const
+  0.00      0.00     0.00        7     0.00     0.00  is_serial
+  0.00      0.00     0.00        7     0.00     0.00  s_malloc
+  0.00      0.00     0.00        7     0.00     0.00  s_strtou32
+  0.00      0.00     0.00        7     0.00     0.00  sanityChecks
+  0.00      0.00     0.00        5     0.00     0.00  is_device_ok
+  0.00      0.00     0.00        5     0.00     0.00  nolinger
+  0.00      0.00     0.00        4     0.00     0.00  logprintf
+  0.00      0.00     0.00        3     0.00     0.00  add_client
+  0.00      0.00     0.00        3     0.00     0.00  get_release_time
+  0.00      0.00     0.00        2     0.00     0.00  setup_hardware
+  0.00      0.00     0.00        1     0.00     0.00  ati_init
+  0.00      0.00     0.00        1     0.00     0.00  config
+  0.00      0.00     0.00        1     0.00     0.00  find_device_endpoints
+  0.00      0.00     0.00        1     0.00     0.00  find_usb_device
+  0.00      0.00     0.00        1     0.00     0.00  get_filter_parameters
+  0.00      0.00     0.00        1     0.00     0.00  get_frequency_range
+  0.00      0.00     0.00        1     0.00     0.00  hw_choose_driver
+  0.00      0.00     0.00        1     0.00     0.00  init_rec_buffer
+  0.00      0.00     0.00        1     0.00     0.00  loop
+  0.00      0.00     0.00        1     0.00     0.00  read_config
+  0.00      0.00     0.00        1     0.00     0.00  read_config_recursive
+  0.00      0.00     0.00        1     0.00     0.00  sort_by_bit_count
+  0.00      0.00     0.00        1     0.00     0.00  start_server
+  0.00      0.00     0.00        1     0.00     0.00  waitfordata
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) no time propagated
+
+index % time    self  children    called     name
+                0.00    0.00   25856/25856       send_data [14]
+[1]      0.0    0.00    0.00   25856         has_toggle_bit_mask [1]
+-----------------------------------------------
+                0.00    0.00   25856/25856       send_data [14]
+[2]      0.0    0.00    0.00   25856         has_toggle_mask [2]
+-----------------------------------------------
+                0.00    0.00   25856/25856       send_data [14]
+[3]      0.0    0.00    0.00   25856         is_space_first [3]
+-----------------------------------------------
+                0.00    0.00   25856/25856       send_data [14]
+[4]      0.0    0.00    0.00   25856         send_pulse [4]
+-----------------------------------------------
+                0.00    0.00   25856/25856       send_data [14]
+[5]      0.0    0.00    0.00   25856         send_space [5]
+-----------------------------------------------
+                0.00    0.00     688/6838        init_send_or_sim [22]
+                0.00    0.00    6150/6838        send_data [14]
+[6]      0.0    0.00    0.00    6838         is_biphase [6]
+                0.00    0.00    6838/6838        is_rc5 [7]
+                0.00    0.00    6838/6838        is_rc6 [8]
+-----------------------------------------------
+                0.00    0.00    6838/6838        is_biphase [6]
+[7]      0.0    0.00    0.00    6838         is_rc5 [7]
+-----------------------------------------------
+                0.00    0.00    6838/6838        is_biphase [6]
+[8]      0.0    0.00    0.00    6838         is_rc6 [8]
+-----------------------------------------------
+                0.00    0.00    1648/1648        send_data [14]
+[9]      0.0    0.00    0.00    1648         bit_count [9]
+-----------------------------------------------
+                0.00    0.00    1648/1648        send_data [14]
+[10]     0.0    0.00    0.00    1648         bits_set [10]
+-----------------------------------------------
+                0.00    0.00    1648/1648        send_data [14]
+[11]     0.0    0.00    0.00    1648         is_rcmm [11]
+-----------------------------------------------
+                0.00    0.00    1648/1648        send_data [14]
+[12]     0.0    0.00    0.00    1648         is_xmp [12]
+-----------------------------------------------
+                0.00    0.00    1648/1648        send_data [14]
+[13]     0.0    0.00    0.00    1648         reverse [13]
+-----------------------------------------------
+                0.00    0.00     480/1648        send_pre [34]
+                0.00    0.00     480/1648        send_post [33]
+                0.00    0.00     688/1648        send_code [29]
+[14]     0.0    0.00    0.00    1648         send_data [14]
+                0.00    0.00   25856/25856       has_toggle_bit_mask [1]
+                0.00    0.00   25856/25856       has_toggle_mask [2]
+                0.00    0.00   25856/25856       is_space_first [3]
+                0.00    0.00   25856/25856       send_pulse [4]
+                0.00    0.00   25856/25856       send_space [5]
+                0.00    0.00    6150/6838        is_biphase [6]
+                0.00    0.00    1648/1648        bit_count [9]
+                0.00    0.00    1648/1648        bits_set [10]
+                0.00    0.00    1648/1648        reverse [13]
+                0.00    0.00    1648/1648        is_rcmm [11]
+                0.00    0.00    1648/1648        is_xmp [12]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[15]     0.0    0.00    0.00     688         bad_send_buffer [15]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[16]     0.0    0.00    0.00     688         check_send_buffer [16]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[17]     0.0    0.00    0.00     688         clear_send_buffer [17]
+-----------------------------------------------
+                0.00    0.00     688/688         send_foot [30]
+[18]     0.0    0.00    0.00     688         has_foot [18]
+-----------------------------------------------
+                0.00    0.00     688/688         send_header [31]
+[19]     0.0    0.00    0.00     688         has_header [19]
+-----------------------------------------------
+                0.00    0.00     688/688         send_post [33]
+[20]     0.0    0.00    0.00     688         has_post [20]
+-----------------------------------------------
+                0.00    0.00     688/688         send_pre [34]
+[21]     0.0    0.00    0.00     688         has_pre [21]
+-----------------------------------------------
+                0.00    0.00     688/688         init_sim [23]
+[22]     0.0    0.00    0.00     688         init_send_or_sim [22]
+                0.00    0.00     688/688         is_grundig [26]
+                0.00    0.00     688/688         is_goldstar [25]
+                0.00    0.00     688/688         is_serial [28]
+                0.00    0.00     688/688         is_bo [24]
+                0.00    0.00     688/688         clear_send_buffer [17]
+                0.00    0.00     688/6838        is_biphase [6]
+                0.00    0.00     688/688         is_raw [27]
+                0.00    0.00     688/688         send_code [29]
+                0.00    0.00     688/688         sync_send_buffer [36]
+                0.00    0.00     688/688         bad_send_buffer [15]
+                0.00    0.00     688/688         check_send_buffer [16]
+                0.00    0.00     344/344         has_repeat [42]
+-----------------------------------------------
+                0.00    0.00     688/688         calculate_signal_lengths [55]
+[23]     0.0    0.00    0.00     688         init_sim [23]
+                0.00    0.00     688/688         init_send_or_sim [22]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[24]     0.0    0.00    0.00     688         is_bo [24]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[25]     0.0    0.00    0.00     688         is_goldstar [25]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[26]     0.0    0.00    0.00     688         is_grundig [26]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[27]     0.0    0.00    0.00     688         is_raw [27]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[28]     0.0    0.00    0.00     688         is_serial [28]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[29]     0.0    0.00    0.00     688         send_code [29]
+                0.00    0.00     688/688         send_lead [32]
+                0.00    0.00     688/688         send_header [31]
+                0.00    0.00     688/688         send_pre [34]
+                0.00    0.00     688/1648        send_data [14]
+                0.00    0.00     688/688         send_post [33]
+                0.00    0.00     688/688         send_trail [35]
+                0.00    0.00     688/688         send_foot [30]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[30]     0.0    0.00    0.00     688         send_foot [30]
+                0.00    0.00     688/688         has_foot [18]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[31]     0.0    0.00    0.00     688         send_header [31]
+                0.00    0.00     688/688         has_header [19]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[32]     0.0    0.00    0.00     688         send_lead [32]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[33]     0.0    0.00    0.00     688         send_post [33]
+                0.00    0.00     688/688         has_post [20]
+                0.00    0.00     480/1648        send_data [14]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[34]     0.0    0.00    0.00     688         send_pre [34]
+                0.00    0.00     688/688         has_pre [21]
+                0.00    0.00     480/1648        send_data [14]
+-----------------------------------------------
+                0.00    0.00     688/688         send_code [29]
+[35]     0.0    0.00    0.00     688         send_trail [35]
+-----------------------------------------------
+                0.00    0.00     688/688         init_send_or_sim [22]
+[36]     0.0    0.00    0.00     688         sync_send_buffer [36]
+-----------------------------------------------
+                0.00    0.00      15/359         defineRemote [43]
+                0.00    0.00     344/359         defineCode [41]
+[37]     0.0    0.00    0.00     359         s_strtocode [37]
+-----------------------------------------------
+                0.00    0.00     358/358         sanityChecks [64]
+[38]     0.0    0.00    0.00     358         gen_mask [38]
+-----------------------------------------------
+                0.00    0.00       7/351         defineRemote [43]
+                0.00    0.00     344/351         defineCode [41]
+[39]     0.0    0.00    0.00     351         s_strdup [39]
+-----------------------------------------------
+                0.00    0.00     344/344         read_config_recursive [81]
+[40]     0.0    0.00    0.00     344         add_void_array [40]
+-----------------------------------------------
+                0.00    0.00     344/344         read_config_recursive [81]
+[41]     0.0    0.00    0.00     344         defineCode [41]
+                0.00    0.00     344/351         s_strdup [39]
+                0.00    0.00     344/359         s_strtocode [37]
+-----------------------------------------------
+                0.00    0.00     344/344         init_send_or_sim [22]
+[42]     0.0    0.00    0.00     344         has_repeat [42]
+-----------------------------------------------
+                0.00    0.00      80/80          read_config_recursive [81]
+[43]     0.0    0.00    0.00      80         defineRemote [43]
+                0.00    0.00      37/37          s_strtoi [45]
+                0.00    0.00      28/28          s_strtolirc_t [47]
+                0.00    0.00      15/359         s_strtocode [37]
+                0.00    0.00       7/351         s_strdup [39]
+                0.00    0.00       7/7           s_strtou32 [63]
+-----------------------------------------------
+                0.00    0.00      42/42          sort_by_bit_count [82]
+[44]     0.0    0.00    0.00      42         bit_count [44]
+-----------------------------------------------
+                0.00    0.00      37/37          defineRemote [43]
+[45]     0.0    0.00    0.00      37         s_strtoi [45]
+-----------------------------------------------
+                0.00    0.00      28/28          read_config_recursive [81]
+[46]     0.0    0.00    0.00      28         checkMode [46]
+-----------------------------------------------
+                0.00    0.00      28/28          defineRemote [43]
+[47]     0.0    0.00    0.00      28         s_strtolirc_t [47]
+-----------------------------------------------
+                0.00    0.00      21/21          calculate_signal_lengths [55]
+[48]     0.0    0.00    0.00      21         max_gap [48]
+-----------------------------------------------
+                0.00    0.00      21/21          calculate_signal_lengths [55]
+[49]     0.0    0.00    0.00      21         min_gap [49]
+-----------------------------------------------
+                0.00    0.00      21/21          get_filter_parameters [75]
+[50]     0.0    0.00    0.00      21         upper_limit [50]
+-----------------------------------------------
+                0.00    0.00       7/18          sanityChecks [64]
+                0.00    0.00      11/18          read_config_recursive [81]
+[51]     0.0    0.00    0.00      18         is_raw [51]
+-----------------------------------------------
+                0.00    0.00      14/14          get_filter_parameters [75]
+[52]     0.0    0.00    0.00      14         lower_limit [52]
+-----------------------------------------------
+                0.00    0.00       2/9           add_client [68]
+                0.00    0.00       7/9           waitfordata [84]
+[53]     0.0    0.00    0.00       9         use_hw [53]
+-----------------------------------------------
+                0.00    0.00       8/8           waitfordata [84]
+[54]     0.0    0.00    0.00       8         max [54]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[55]     0.0    0.00    0.00       7         calculate_signal_lengths [55]
+                0.00    0.00     688/688         init_sim [23]
+                0.00    0.00      21/21          min_gap [49]
+                0.00    0.00      21/21          max_gap [48]
+                0.00    0.00       7/7           is_const [60]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[56]     0.0    0.00    0.00       7         get_void_array [56]
+-----------------------------------------------
+                0.00    0.00       7/7           sanityChecks [64]
+[57]     0.0    0.00    0.00       7         has_repeat_gap [57]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[58]     0.0    0.00    0.00       7         has_toggle_bit_mask [58]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[59]     0.0    0.00    0.00       7         init_void_array [59]
+-----------------------------------------------
+                0.00    0.00       7/7           calculate_signal_lengths [55]
+[60]     0.0    0.00    0.00       7         is_const [60]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[61]     0.0    0.00    0.00       7         is_serial [61]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[62]     0.0    0.00    0.00       7         s_malloc [62]
+-----------------------------------------------
+                0.00    0.00       7/7           defineRemote [43]
+[63]     0.0    0.00    0.00       7         s_strtou32 [63]
+-----------------------------------------------
+                0.00    0.00       7/7           read_config_recursive [81]
+[64]     0.0    0.00    0.00       7         sanityChecks [64]
+                0.00    0.00     358/358         gen_mask [38]
+                0.00    0.00       7/7           has_repeat_gap [57]
+                0.00    0.00       7/18          is_raw [51]
+-----------------------------------------------
+                0.00    0.00       5/5           find_usb_device [74]
+[65]     0.0    0.00    0.00       5         is_device_ok [65]
+-----------------------------------------------
+                0.00    0.00       2/5           start_server [83]
+                0.00    0.00       3/5           add_client [68]
+[66]     0.0    0.00    0.00       5         nolinger [66]
+-----------------------------------------------
+                0.00    0.00       1/4           loop [79]
+                0.00    0.00       3/4           add_client [68]
+[67]     0.0    0.00    0.00       4         logprintf [67]
+-----------------------------------------------
+                0.00    0.00       3/3           waitfordata [84]
+[68]     0.0    0.00    0.00       3         add_client [68]
+                0.00    0.00       3/5           nolinger [66]
+                0.00    0.00       3/4           logprintf [67]
+                0.00    0.00       2/9           use_hw [53]
+                0.00    0.00       1/1           ati_init [71]
+                0.00    0.00       1/2           setup_hardware [70]
+-----------------------------------------------
+                0.00    0.00       3/3           waitfordata [84]
+[69]     0.0    0.00    0.00       3         get_release_time [69]
+-----------------------------------------------
+                0.00    0.00       1/2           config [72]
+                0.00    0.00       1/2           add_client [68]
+[70]     0.0    0.00    0.00       2         setup_hardware [70]
+-----------------------------------------------
+                0.00    0.00       1/1           add_client [68]
+[71]     0.0    0.00    0.00       1         ati_init [71]
+                0.00    0.00       1/1           init_rec_buffer [78]
+                0.00    0.00       1/1           find_usb_device [74]
+                0.00    0.00       1/1           find_device_endpoints [73]
+-----------------------------------------------
+                0.00    0.00       1/1           main [189]
+[72]     0.0    0.00    0.00       1         config [72]
+                0.00    0.00       1/1           read_config [80]
+                0.00    0.00       1/1           get_frequency_range [76]
+                0.00    0.00       1/2           setup_hardware [70]
+                0.00    0.00       1/1           get_filter_parameters [75]
+-----------------------------------------------
+                0.00    0.00       1/1           ati_init [71]
+[73]     0.0    0.00    0.00       1         find_device_endpoints [73]
+-----------------------------------------------
+                0.00    0.00       1/1           ati_init [71]
+[74]     0.0    0.00    0.00       1         find_usb_device [74]
+                0.00    0.00       5/5           is_device_ok [65]
+-----------------------------------------------
+                0.00    0.00       1/1           config [72]
+[75]     0.0    0.00    0.00       1         get_filter_parameters [75]
+                0.00    0.00      21/21          upper_limit [50]
+                0.00    0.00      14/14          lower_limit [52]
+-----------------------------------------------
+                0.00    0.00       1/1           config [72]
+[76]     0.0    0.00    0.00       1         get_frequency_range [76]
+-----------------------------------------------
+                0.00    0.00       1/1           main [189]
+[77]     0.0    0.00    0.00       1         hw_choose_driver [77]
+-----------------------------------------------
+                0.00    0.00       1/1           ati_init [71]
+[78]     0.0    0.00    0.00       1         init_rec_buffer [78]
+-----------------------------------------------
+                0.00    0.00       1/1           main [189]
+[79]     0.0    0.00    0.00       1         loop [79]
+                0.00    0.00       1/4           logprintf [67]
+                0.00    0.00       1/1           waitfordata [84]
+-----------------------------------------------
+                0.00    0.00       1/1           config [72]
+[80]     0.0    0.00    0.00       1         read_config [80]
+                0.00    0.00       1/1           read_config_recursive [81]
+-----------------------------------------------
+                0.00    0.00       1/1           read_config [80]
+[81]     0.0    0.00    0.00       1         read_config_recursive [81]
+                0.00    0.00     344/344         defineCode [41]
+                0.00    0.00     344/344         add_void_array [40]
+                0.00    0.00      80/80          defineRemote [43]
+                0.00    0.00      28/28          checkMode [46]
+                0.00    0.00      11/18          is_raw [51]
+                0.00    0.00       7/7           init_void_array [59]
+                0.00    0.00       7/7           s_malloc [62]
+                0.00    0.00       7/7           get_void_array [56]
+                0.00    0.00       7/7           sanityChecks [64]
+                0.00    0.00       7/7           has_toggle_bit_mask [58]
+                0.00    0.00       7/7           is_serial [61]
+                0.00    0.00       7/7           calculate_signal_lengths [55]
+                0.00    0.00       1/1           sort_by_bit_count [82]
+-----------------------------------------------
+                0.00    0.00       1/1           read_config_recursive [81]
+[82]     0.0    0.00    0.00       1         sort_by_bit_count [82]
+                0.00    0.00      42/42          bit_count [44]
+-----------------------------------------------
+                0.00    0.00       1/1           main [189]
+[83]     0.0    0.00    0.00       1         start_server [83]
+                0.00    0.00       2/5           nolinger [66]
+-----------------------------------------------
+                0.00    0.00       1/1           loop [79]
+[84]     0.0    0.00    0.00       1         waitfordata [84]
+                0.00    0.00       8/8           max [54]
+                0.00    0.00       7/9           use_hw [53]
+                0.00    0.00       3/3           get_release_time [69]
+                0.00    0.00       3/3           add_client [68]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+
+Index by function name
+
+  [68] add_client              [1] has_toggle_bit_mask    [66] nolinger
+  [40] add_void_array          [2] has_toggle_mask        [80] read_config
+  [71] ati_init               [77] hw_choose_driver       [81] read_config_recursive
+  [15] bad_send_buffer        [78] init_rec_buffer        [13] reverse
+  [44] bit_count              [22] init_send_or_sim       [62] s_malloc
+   [9] bit_count              [23] init_sim               [39] s_strdup
+  [10] bits_set               [59] init_void_array        [37] s_strtocode
+  [55] calculate_signal_lengths [6] is_biphase            [45] s_strtoi
+  [46] checkMode              [24] is_bo                  [47] s_strtolirc_t
+  [16] check_send_buffer      [60] is_const               [63] s_strtou32
+  [17] clear_send_buffer      [65] is_device_ok           [64] sanityChecks
+  [72] config                 [25] is_goldstar            [29] send_code
+  [41] defineCode             [26] is_grundig             [14] send_data
+  [43] defineRemote           [51] is_raw                 [30] send_foot
+  [73] find_device_endpoints  [27] is_raw                 [31] send_header
+  [74] find_usb_device         [7] is_rc5                 [32] send_lead
+  [38] gen_mask                [8] is_rc6                 [33] send_post
+  [75] get_filter_parameters  [11] is_rcmm                [34] send_pre
+  [76] get_frequency_range    [61] is_serial               [4] send_pulse
+  [69] get_release_time       [28] is_serial               [5] send_space
+  [56] get_void_array          [3] is_space_first         [35] send_trail
+  [18] has_foot               [12] is_xmp                 [70] setup_hardware
+  [19] has_header             [67] logprintf              [82] sort_by_bit_count
+  [20] has_post               [79] loop                   [83] start_server
+  [21] has_pre                [52] lower_limit            [36] sync_send_buffer
+  [42] has_repeat             [54] max                    [50] upper_limit
+  [57] has_repeat_gap         [48] max_gap                [53] use_hw
+  [58] has_toggle_bit_mask    [49] min_gap                [84] waitfordata

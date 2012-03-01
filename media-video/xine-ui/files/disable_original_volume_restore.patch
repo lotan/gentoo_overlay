@@ -1,0 +1,39 @@
+diff -Naur src/xitk.old/actions.c src/xitk/actions.c
+--- src/xitk.old/actions.c	2010-08-14 18:30:40.000000000 +0200
++++ src/xitk/actions.c	2010-08-14 18:32:13.000000000 +0200
+@@ -716,10 +716,6 @@
+   config_update_num("gui.amp_level", gGui->mixer.amp_level);
+   xine_config_save(__xineui_global_xine_instance, __xineui_global_config_file);
+   
+-  /* Restore old audio volume */
+-  if(gGui->ao_port && (gGui->mixer.method == SOUND_CARD_MIXER))
+-    xine_set_param(gGui->stream, XINE_PARAM_AUDIO_VOLUME, gGui->mixer.original_level);
+-  
+   xine_close(gGui->stream);
+   xine_close(gGui->visual_anim.stream);
+ 
+diff -Naur src/xitk.old/common.h src/xitk/common.h
+--- src/xitk.old/common.h	2010-08-14 18:30:40.000000000 +0200
++++ src/xitk/common.h	2010-08-14 18:32:33.000000000 +0200
+@@ -320,7 +320,6 @@
+     int                     mute;
+     int                     amp_level;
+     int                     method;
+-    int                     original_level;
+   } mixer;
+ 
+   xitk_register_key_t       widget_key;
+diff -Naur src/xitk.old/main.c src/xitk/main.c
+--- src/xitk.old/main.c	2010-08-14 18:30:40.000000000 +0200
++++ src/xitk/main.c	2010-08-14 18:32:25.000000000 +0200
+@@ -2200,10 +2200,6 @@
+       xine_set_param(gGui->stream, XINE_PARAM_EARLY_FINISHED_EVENT, 1);
+ #endif
+ 
+-  /* Store audio mixer level */
+-  if(gGui->ao_port && (gGui->mixer.method == SOUND_CARD_MIXER))
+-    gGui->mixer.original_level = xine_get_param(gGui->stream, XINE_PARAM_AUDIO_VOLUME);
+-
+   gGui->vo_none = xine_open_video_driver(__xineui_global_xine_instance, "none", XINE_VISUAL_TYPE_NONE, NULL);
+   gGui->ao_none = xine_open_audio_driver(__xineui_global_xine_instance, "none", NULL);
+ 

@@ -1,0 +1,10 @@
+--- Makefile.in.old	2009-05-11 20:02:35.000000000 +0200
++++ Makefile.in	2009-05-11 20:02:53.000000000 +0200
+@@ -114,7 +114,6 @@
+ .PHONY: $(BUILD_TARGETS)
+ $(BUILD_TARGETS): all-deps
+ 	$(MAKE) -C $(USDX_SRC_DIR) $@
+-	$(MAKE) -C $(USDX_PLUGIN_DIR) all
+ 
+ .PHONY: all-deps
+ all-deps:

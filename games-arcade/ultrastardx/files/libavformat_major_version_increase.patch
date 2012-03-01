@@ -1,0 +1,22 @@
+--- src/lib/ffmpeg/avformat.pas.old	2011-04-18 15:01:08.038690083 +0200
++++ src/lib/ffmpeg/avformat.pas	2011-04-18 15:01:38.867624677 +0200
+@@ -81,8 +81,8 @@
+    *)
+   (* Max. supported version by this header *)
+   LIBAVFORMAT_MAX_VERSION_MAJOR   = 52;
+-  LIBAVFORMAT_MAX_VERSION_MINOR   = 78;
+-  LIBAVFORMAT_MAX_VERSION_RELEASE = 3;
++  LIBAVFORMAT_MAX_VERSION_MINOR   = 123;
++  LIBAVFORMAT_MAX_VERSION_RELEASE = 0;
+   LIBAVFORMAT_MAX_VERSION = (LIBAVFORMAT_MAX_VERSION_MAJOR * VERSION_MAJOR) +
+                             (LIBAVFORMAT_MAX_VERSION_MINOR * VERSION_MINOR) +
+                             (LIBAVFORMAT_MAX_VERSION_RELEASE * VERSION_RELEASE);
+@@ -425,7 +425,7 @@
+   AVFMTCTX_NOHEADER = $0001; (**< signal that no header is present
+                                          (streams are added dynamically) *)
+ 
+-{$IF LIBAVFORMAT_VERSION < 52078003}  // < 52.78.3
++{$IF LIBAVFORMAT_VERSION <= 52123000}  // < 52.123.0
+   {$IF LIBAVFORMAT_VERSION_MAJOR < 53}
+   MAX_STREAMS = 20;
+   {$ELSE}

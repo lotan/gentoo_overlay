@@ -1,0 +1,160 @@
+--- src/post/planar/expand.c.old	2012-01-25 21:53:31.224092234 +0100
++++ src/post/planar/expand.c	2012-01-25 22:00:43.092922353 +0100
+@@ -1,5 +1,5 @@
+ /*
+- * Copyright (C) 2003 the xine project
++ * Copyright (C) 2007 the xine project
+  *
+  * This file is part of xine, a free video player.
+  *
+@@ -20,7 +20,7 @@
+  * $Id:
+  *
+  * expand video filter by James Stembridge 24/05/2003
+- *            improved by Michael Roitzsch
++ *            improved by Michael Roitzsch and Jason Tackaberry
+  *            centre_crop_out_mode by Reinhard Nissl
+  *
+  * based on invert.c
+@@ -33,9 +33,9 @@
+ /* The expand trick explained:
+  *
+  * The expand plugin is meant to take frames of arbitrary aspect ratio and
+- * converts them to 4:3 aspect by adding black bars on the top and bottom
+- * of the frame. This allows us to shift overlays down into the black area
+- * so they don't cover the image.
++ * converts them to the user-specified aspect by adding black bars on the top
++ * and bottom or left and right edges of the frame. This allows us to shift
++ * overlays down into the black area so they don't cover the image.
+  *
+  * How do we do that? The naive approach would be to intercept the frame's
+  * draw() function and simply copy the frame's content into a larger one.
+@@ -92,6 +92,7 @@
+   int                      overlay_y_offset;
+   double                   aspect;
+   int                      top_bar_height;
++  int                      left_bar_width;
+   int                      centre_cut_out_mode;
+   int                      cropping_active;
+ } post_expand_t;
+@@ -273,6 +274,21 @@
+ }
+ 
+ 
++static inline void black_sides(void *plane, int width, int height, int x_off,
++                               int stride, uint32_t fill)
++{
++    int i;
++    while (height--) {
++        for (i = 0; i < x_off; i += 4) {
++            /* Fill the left/right bars with fill pattern (expected to be
++               black for the given plane). This is safe from overruns because
++               frames are always multiple of 8. */
++            *(uint32_t *)(plane+i) = *(uint32_t *)(plane+i+width+x_off) = fill;
++        }
++        plane += stride;
++    }
++}
++
+ static int expand_draw(vo_frame_t *frame, xine_stream_t *stream)
+ {
+   post_video_port_t *port = (post_video_port_t *)frame->port;
+@@ -328,34 +344,43 @@
+   post_video_port_t *port = (post_video_port_t *)port_gen;
+   post_expand_t     *this = (post_expand_t *)port->post;
+   vo_frame_t        *frame;
+-  uint32_t           new_height, top_bar_height;
++  uint32_t           new_width = width, new_height = height, 
++                     left_bar_width, top_bar_height;
+   int                i, end;
++  double             adjusted_aspect = this->aspect;
+ 
+   _x_post_rewire(&this->post);
+ 
+   if (ratio <= 0.0) ratio = (double)width / (double)height;
+ 
+   /* Calculate height of expanded frame */
+-  new_height = (double)height * ratio / this->aspect;
+-  new_height = (new_height + 1) & ~1;
+-  top_bar_height = (new_height - height) / 2;
+-  top_bar_height = (top_bar_height + 1) & ~1;
+-
+-  this->top_bar_height = top_bar_height;
+-
+-  if (new_height > height &&
+-      (format == XINE_IMGFMT_YV12 || format == XINE_IMGFMT_YUY2)) {
+-    frame = port->original_port->get_frame(port->original_port,
+-      width, new_height, this->aspect, format, flags);
+-
+-    _x_post_inc_usage(port);
+-    frame = _x_post_intercept_video_frame(frame, port);
++  adjusted_aspect *= ((double)width/height) / ratio;
++  if (new_height < new_width / adjusted_aspect)
++      new_height = new_width / adjusted_aspect + 0.5;
++  else
++      new_width = new_height * adjusted_aspect + 0.5;
++
++  if ((new_height == height && new_width == width) ||
++      (format != XINE_IMGFMT_YV12 && format != XINE_IMGFMT_YUY2)) 
++    return port->original_port->get_frame(port->original_port, width, height, 
++                                          ratio, format, flags);
++
++  this->top_bar_height = top_bar_height = ((new_height - height) / 2 + 1) & ~1;
++  this->left_bar_width = left_bar_width = ((new_width - width) / 2 + 1) & ~1;
++
++  frame = port->original_port->get_frame(port->original_port, new_width, new_height,
++                                         this->aspect, format, flags);
++
++  _x_post_inc_usage(port);
++  frame = _x_post_intercept_video_frame(frame, port);
++  frame->width  = width;
++  frame->height = height;
++  frame->ratio  = ratio;
+ 
++  if (new_height > height) {
+     /* paint black bars in the top and bottom of the frame and hide these
+      * from the decoders by modifying the pointers to and
+      * the size of the drawing area */
+-    frame->height = height;
+-    frame->ratio  = ratio;
+     switch (format) {
+     case XINE_IMGFMT_YV12:
+       /* paint top bar */
+@@ -390,10 +415,25 @@
+       /* modify drawing area */
+       frame->base[0] += frame->pitches[0] * top_bar_height;
+     }
+-  } else {
+-    frame = port->original_port->get_frame(port->original_port,
+-      width, height, ratio, format, flags);
+-    /* no need to intercept this one, we are not going to do anything with it */
++  } 
++  else if (new_width > width) {
++    /* Horizontal expansion; paint black bars on sides and shift base 
++       pointers over. */
++    switch (format) {
++    case XINE_IMGFMT_YV12:
++      black_sides(frame->base[0], width, height, left_bar_width, frame->pitches[0], 0x00000000);
++      black_sides(frame->base[1], width/2, height/2, left_bar_width/2, frame->pitches[1], 0x80808080);
++      black_sides(frame->base[2], width/2, height/2, left_bar_width/2, frame->pitches[2], 0x80808080);
++      frame->base[0] += left_bar_width;
++      frame->base[1] += left_bar_width / 2;
++      frame->base[2] += left_bar_width / 2;
++      break;
++
++     case XINE_IMGFMT_YUY2:
++      black_sides(frame->base[0], width*2, height, left_bar_width*2, frame->pitches[0], 0x80008000);
++      frame->base[0] += left_bar_width * 2;
++      break;
++    }
+   }
+ 
+   return frame;
+@@ -428,6 +468,7 @@
+       break;
+     case 1:
+       /* menu overlay */
++      event->object.overlay->x += this->left_bar_width;
+       event->object.overlay->y += this->top_bar_height;
+     }
+   }

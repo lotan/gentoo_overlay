@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="248"
+   name=""
+   committed-date="2007-07-05T11:48:17.417344Z"
+   url="http://overlays.gentoo.org/svn/proj/vdr/testing/media-video/vdr/files"
+   last-author="zzam"
+   kind="dir"
+   uuid="b3c3e63f-c31f-0410-8dce-ed2468e91240"
+   repos="http://overlays.gentoo.org/svn/proj/vdr"
+   revision="250"/>
+<entry
+   committed-rev="248"
+   name="digest-vdr-1.4.7-r3"
+   text-time="2007-07-06T16:37:02.000000Z"
+   committed-date="2007-07-05T11:48:17.417344Z"
+   checksum="cef1c23ab322f01fe380f52c97b7800f"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-07-06T16:37:02.000000Z"/>
+<entry
+   committed-rev="223"
+   name="vdr-set-dumpable.diff"
+   text-time="2007-06-26T12:52:41.000000Z"
+   committed-date="2007-06-19T09:36:35.228624Z"
+   checksum="3c513d532141a2f07e1b219cbdb2f91a"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-06-26T12:52:41.000000Z"/>
+<entry
+   committed-rev="248"
+   name="extensions-patch-32-plugin-link-error.diff"
+   text-time="2007-07-06T16:37:02.000000Z"
+   committed-date="2007-07-05T11:48:17.417344Z"
+   checksum="73fdc3d37213e0b58500bbe6253a4e87"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-07-06T16:37:02.000000Z"/>
+<entry
+   committed-rev="223"
+   name="vdr-add-svdrp-down-0.1.diff"
+   text-time="2007-06-26T12:52:41.000000Z"
+   committed-date="2007-06-19T09:36:35.228624Z"
+   checksum="58c52209186b1fa29c1312d1d9abd4cd"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-06-26T12:52:41.000000Z"/>
+<entry
+   committed-rev="35"
+   name="vdr-setup-menu-0.2.3.xml"
+   text-time="2007-02-03T21:04:12.000000Z"
+   committed-date="2006-10-21T08:32:36.694547Z"
+   checksum="628f5a7c342cde03dd7e1c814252dd6b"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-02-03T21:04:12.000000Z"/>
+<entry
+   committed-rev="177"
+   name="digest-vdr-1.4.6-r1"
+   text-time="2007-06-26T12:52:41.000000Z"
+   committed-date="2007-03-24T23:44:48.983278Z"
+   checksum="5828ef485d5298c0a8061b83ef082f5f"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-06-26T12:52:41.000000Z"/>
+<entry
+   committed-rev="223"
+   name="digest-vdr-1.4.7"
+   text-time="2007-06-26T12:52:41.000000Z"
+   committed-date="2007-06-19T09:36:35.228624Z"
+   checksum="878e15ba2f3b41bde92ec2810f8a9c0e"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-06-26T12:52:41.000000Z"/>
+<entry
+   committed-rev="234"
+   name="digest-vdr-1.4.7-r1"
+   text-time="2007-06-26T12:52:41.000000Z"
+   committed-date="2007-06-25T16:02:29.579457Z"
+   checksum="cef1c23ab322f01fe380f52c97b7800f"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-06-26T12:52:41.000000Z"/>
+<entry
+   committed-rev="239"
+   name="digest-vdr-1.4.7-r2"
+   text-time="2007-07-01T00:18:38.000000Z"
+   committed-date="2007-06-30T13:08:07.629524Z"
+   checksum="cef1c23ab322f01fe380f52c97b7800f"
+   last-author="zzam"
+   kind="file"
+   prop-time="2007-07-01T00:18:38.000000Z"/>
+</wc-entries>

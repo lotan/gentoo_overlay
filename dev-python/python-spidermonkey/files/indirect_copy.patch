@@ -1,0 +1,44 @@
+--- setup.py.old	2012-02-23 18:23:12.699364805 +0100
++++ setup.py	2012-02-23 18:25:07.115564717 +0100
+@@ -3,7 +3,7 @@
+ import glob
+ from distutils.core import setup, Extension
+ from distutils.command.clean import clean
+-from distutils.command.install import install
++from distutils.command.install_data import install_data
+ from distutils.file_util import copy_file
+ 
+ try:
+@@ -33,18 +33,18 @@
+         raise AssertionError("No objdir found.")
+     return objdirs[0]
+ 
+-class spidermonkey_install(install):
++class spidermonkey_install_data(install_data):
+     def run(self):
+-        install.run(self)
++        install_data.run(self)
+         objdir = _find_obj_dir()
+         if sys.platform == "darwin":
+             copy_file(os.path.join(objdir, "libjs.dylib"),
+-                      "/usr/local/lib")
++                      self.install_dir + "/lib")
+         elif sys.platform.startswith("win"):
+             raise NotImplementedError("Windows not yet supported.")
+         else:
+             copy_file(os.path.join(objdir, "libjs.so"),
+-                      "/usr/local/lib")
++                      self.install_dir + "/lib")
+ 
+ class spidermonkey_clean(clean):
+     def run(self):
+@@ -93,7 +93,8 @@
+       ext_modules =  [Extension("spidermonkey",
+                                 sources=sources,
+                                 libraries=["js", "stdc++"])],
++      data_files = [("lib", [])],
+       cmdclass = {'build_ext': spidermonkey_build_ext,
+                   'clean': spidermonkey_clean,
+-                  'install': spidermonkey_install}
++                  'install_data': spidermonkey_install_data}
+       )

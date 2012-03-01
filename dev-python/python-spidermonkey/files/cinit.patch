@@ -1,0 +1,30 @@
+Index: spidermonkey.pyx
+===================================================================
+--- spidermonkey.pyx	(révision 29)
++++ spidermonkey.pyx	(copie de travail)
+@@ -450,7 +450,7 @@
+     cdef JSRuntime *rt
+     cdef object _cxs
+ 
+-    def __new__(self, *args, **kwargs):
++    def __cinit__(self, *args, **kwargs):
+         self.rt = JS_NewRuntime(1000000)
+         if self.rt == NULL:
+             raise SystemError("can't create JavaScript runtime")
+@@ -491,7 +491,7 @@
+     cdef object _script
+     cdef object _evaled_script
+ 
+-    def __new__(self, Runtime rt, globj):
++    def __cinit__(self, Runtime rt, globj):
+         # keep ref to Runtime to stop it getting dealloc'd before Context does
+         self.rt = rt
+ 
+@@ -692,7 +692,7 @@
+     cdef JSClass *jsc
+     cdef object klass
+ 
+-    def __new__(self, Context context, klass, bind_constructor, is_global,
++    def __cinit__(self, Context context, klass, bind_constructor, is_global,
+                 flags):
+         cdef JSObject *base_obj

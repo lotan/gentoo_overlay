@@ -1,0 +1,11 @@
+--- ffnetdev-9999/osdworker.c.old	2010-05-28 17:16:25.548584765 +0200
++++ ffnetdev-9999/osdworker.c	2010-05-28 17:16:43.734584467 +0200
+@@ -763,7 +763,7 @@
+ 						}
+ 						
+ 					 	CARD8 name[7];
+-					 	strcpy((char*)&name, "VDR-OSD");
++					 	strncpy((char*)&name, "VDR-OSD", 7);
+ 					 	if (!m_OSDClient->SafeWrite(&name, 7))
+ 						{   
+ 						    state = NO_CLIENT;

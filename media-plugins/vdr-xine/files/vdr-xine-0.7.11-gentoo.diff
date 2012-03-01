@@ -1,0 +1,26 @@
+Index: xine-0.7.11/Makefile
+===================================================================
+--- xine-0.7.11.orig/Makefile
++++ xine-0.7.11/Makefile
+@@ -36,7 +36,7 @@ TMPDIR = /tmp
+ INCLUDES += `xine-config --cflags` 
+ 
+ # where to create fifos (xine expects them at /tmp/vdr-xine)
+-VDR_XINE_FIFO_DIR ?= /tmp/vdr-xine
++VDR_XINE_FIFO_DIR ?= /var/vdr/xine
+ 
+ # enable to fully support yaepg plugin
+ #VDR_XINE_SET_VIDEO_WINDOW = 1
+Index: xine-0.7.11/xineLib.c
+===================================================================
+--- xine-0.7.11.orig/xineLib.c
++++ xine-0.7.11/xineLib.c
+@@ -2053,7 +2053,7 @@ namespace PluginXine
+     ::memset(m_osdWindowSupportTransparency, 0, sizeof (m_osdWindowSupportTransparency));
+ #endif    
+ 
+-    string noSignalFileName = plugin->ConfigDirectory(PLUGIN_NAME_I18N);
++    string noSignalFileName = "/usr/share/vdr/xine";
+ //    noSignalFileName += "/noSignal.pes";
+     noSignalFileName += "/noSignal.mpg";
+         

@@ -1,0 +1,11 @@
+--- src/audio_dec/xine_mad_decoder.c.old	2010-09-10 00:46:36.796628351 +0200
++++ src/audio_dec/xine_mad_decoder.c	2010-09-10 00:47:02.288839946 +0200
+@@ -190,7 +190,7 @@
+     mad_stream_buffer (&this->stream, this->buffer,
+ 		       this->bytes_in_buffer);
+ 
+-    if (this->bytes_in_buffer < MAD_MIN_SIZE && buf->pts == 0)
++    if (this->bytes_in_buffer < MAD_MIN_SIZE || buf->pts == 0)
+       return;
+ 
+     if (!this->needs_more_data) {

@@ -1,0 +1,33 @@
+--- mywhatsonitem.c.old	2008-04-19 14:25:11.000000000 +0200
++++ mywhatsonitem.c	2008-04-19 14:26:13.000000000 +0200
+@@ -71,26 +71,15 @@
+     progress=9;
+   
+   std::string ProgressBar;
++  ProgressBar+=Icons::ProgressStart();
+   for(i=0;i < 10;i++)
+   {
+-    if(i == 0 && progress > 0)
++    if(i < progress)
+       ProgressBar+=Icons::ProgressFilled();
+     else
+-      ProgressBar+=Icons::ProgressStart();
+-    
+-    if(i > 0 && i < 9)
+-    {
+-      if(i < progress)
+-        ProgressBar+=Icons::ProgressFilled();
+-      else
+-        ProgressBar+=Icons::ProgressEmpty();
+-    }
+-    
+-    if(i == 9 && progress == 9)
+-      ProgressBar+=Icons::ProgressFilled();
+-    else
+-      ProgressBar+=Icons::ProgressEnd();
++      ProgressBar+=Icons::ProgressEmpty();
+   }
++  ProgressBar+=Icons::ProgressEnd();
+     
+   if(showchannelnumbers)
+     asprintf(&buffer,"%c\t%d\t%-10s\t %s\t%s",m,channel->Number(),channel->ShortName(true),(!(event->RunningStatus()==4)&&next)?*event->GetTimeString():ProgressBar.c_str(),event->Title());

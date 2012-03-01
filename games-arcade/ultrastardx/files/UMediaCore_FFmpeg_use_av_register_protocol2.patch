@@ -1,0 +1,11 @@
+--- src/media/UMediaCore_FFmpeg.pas.old	2011-04-18 15:26:06.175598636 +0200
++++ src/media/UMediaCore_FFmpeg.pas	2011-04-18 15:29:33.420193564 +0200
+@@ -199,7 +199,7 @@
+   inherited;
+ 
+   CheckVersions();
+-  av_register_protocol(@UTF8FileProtocol);
++  av_register_protocol2(@UTF8FileProtocol, Sizeof(TURLProtocol));
+   AVCodecLock := SDL_CreateMutex();
+ end;
+ 

@@ -1,0 +1,42 @@
+# Copyright 2010-2011 Antoine Martin <antoine@nagafix.co.uk>
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI="3"
+SUPPORT_PYTHON_ABIS="1"
+
+inherit eutils
+inherit distutils
+
+DESCRIPTION="screen for X - this is the modified version designed to work with
+Window-Switch"
+HOMEPAGE="http://code.google.com/p/partiwm/wiki/xpra"
+SRC_URI="http://xpra.devloop.org.uk/src/${P}.tar.bz2"
+LICENSE="GPL-3"
+SLOT="0"
+KEYWORDS="~amd64 ~ppc ~x86"
+IUSE="+server +ssh"
+PYTHON_DEPEND="2"
+RESTRICT_PYTHON_ABIS="3.*"
+
+RDEPEND="
+dev-python/pycrypto
+dev-python/pygtk
+dev-python/imaging
+ssh? ( net-misc/openssh )
+server? ( x11-base/xorg-server[-minimal,xvfb] )
+server? ( dev-python/cython )
+server? ( x11-libs/libXtst )
+"
+DEPEND="${RDEPEND}"
+
+src_unpack() {
+	unpack ${A}
+	cd "${S}"
+	if ! use server; then
+		epatch "${FILESDIR}"/disable-posix-server.patch
+	fi
+	epatch "${FILESDIR}"/xclipboard_push-${PV}.patch
+}
+src_compile() {
+	python make_constants_pxi.py wimpiggy/lowlevel/constants.txt wimpiggy/lowlevel/constants.pxi
+}
