@@ -4,13 +4,12 @@
 
 EAPI="2"
 
-inherit webapp depend.php subversion
+inherit webapp depend.php git-2
 
 DESCRIPTION="Ampache is a PHP-based tool for managing, updating and playing your audio files via a web interface."
 HOMEPAGE="http://www.ampache.org/"
-ESVN_FETCH_CMD="/root/bin/tsvn checkout"
-ESVN_UPDATE_CMD="/root/bin/tsvn update"
-ESVN_REPO_URI="https://svn.ampache.org/trunk"
+
+EGIT_REPO_URI="git://gitorious.org/ampache/ampache.git"
 
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~ppc ~sparc ~x86"
