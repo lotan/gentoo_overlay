@@ -1,0 +1,23 @@
+--- support_ldap.c.old	2012-04-15 21:40:29.344331945 +0200
++++ support_ldap.c	2012-04-15 21:42:42.401427344 +0200
+@@ -606,15 +606,15 @@
+ 		    for (il = 0; values[il] != NULL; il++)
+ 		      {
+ 
+-			attr_value= realloc (attr_value,(il+1)*sizeof(char *));
++			attr_value= realloc (attr_value,(max_attr+1)*sizeof(char *));
+ 			if ( !attr_value) 
+ 			  break;
+ 
+-                        attr_value[il] = malloc (values[il]->bv_len + 1);
+-                        memcpy(attr_value[il],values[il]->bv_val,values[il]->bv_len);   
+-			attr_value[il][values[il]->bv_len]=0;
++                        attr_value[max_attr] = malloc (values[il]->bv_len + 1);
++                        memcpy(attr_value[max_attr],values[il]->bv_val,values[il]->bv_len);   
++			attr_value[max_attr][values[il]->bv_len]=0;
+ 		      }
+-		    max_attr=il;
++		    max_attr++;
+ 		  }
+ 		ber_bvecfree(values);
+ 	      }

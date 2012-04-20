@@ -22,6 +22,7 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	epatch ${FILESDIR}/krb5_lib.patch
+	epatch ${FILESDIR}/ldap_attribute.patch
 }
 
 src_install() {
