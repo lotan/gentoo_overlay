@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d50aedf..a83d6c6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,13 +27,19 @@ find_path(HIDAPI_HEADER_DIR hidapi.h
+ )
+ 
+ if (BUILD_HIDAPI_SHARED)
+-	find_library(HIDAPI_LIB NAMES hidapi-hidraw hidapi-libusb
++	find_library(HIDAPI_LIB NAMES hidapi-libusb hidapi-hidraw
+ 		PATHS ../hidapi ../hidapi.git
+ 		PATH_SUFFIXES linux mac
+ 		DOC "The location of the HIDAPI shared library file"
+ 	)
+ 	set(HIDAPI_STATIC_OBJECT)
+-	set(HIDAPI_LINK_LIBS ${HIDAPI_LIB})
++	find_package(PkgConfig REQUIRED)
++	if (HIDAPI_LIB MATCHES -libusb\\.so\$)
++		pkg_check_modules(LIBUSB REQUIRED libusb-1.0)
++	else()
++		pkg_check_modules(LIBUDEV REQUIRED libudev)
++	endif()
++	set(HIDAPI_LINK_LIBS ${HIDAPI_LIB} ${LIBUSB_LIBRARIES} ${LIBUDEV_LIBRARIES})
+ else()
+ 	set(HIDAPI_LIB)
+ 	find_file(HIDAPI_OBJECT NAMES hid.o hid-libusb.o

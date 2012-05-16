@@ -1,0 +1,66 @@
+diff --git a/libusb/Makefile.linux b/libusb/Makefile.linux
+index 337b556..13e646c 100644
+--- a/libusb/Makefile.linux
++++ b/libusb/Makefile.linux
+@@ -11,12 +11,12 @@ all: hidtest-libusb libs
+ libs: libhidapi-libusb.so
+ 
+ CC       ?= gcc
+-CFLAGS   ?= -Wall -g -fpic
++CFLAGS   += -Wall -g -fpic
+ 
+ CXX      ?= g++
+-CXXFLAGS ?= -Wall -g -fpic
++CXXFLAGS += -Wall -g -fpic
+ 
+-LDFLAGS  ?= -Wall -g
++LDFLAGS  += -Wall -g
+ 
+ COBJS_LIBUSB = hid.o
+ COBJS = $(COBJS_LIBUSB)
+@@ -36,10 +36,10 @@ libhidapi-libusb.so: $(COBJS_LIBUSB)
+ 	$(CC) $(LDFLAGS) $(LIBS_USB) -shared -fpic -Wl,-soname,$@.0 $^ -o $@
+ 
+ # Objects
+-$(COBJS): %.o: %.c
++%.o: %.c
+ 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+ 
+-$(CPPOBJS): %.o: %.cpp
++%.o: %.cpp
+ 	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@
+ 
+ 
+diff --git a/linux/Makefile b/linux/Makefile
+index f731519..c2c0230 100644
+--- a/linux/Makefile
++++ b/linux/Makefile
+@@ -11,12 +11,12 @@ all: hidtest-hidraw libs
+ libs: libhidapi-hidraw.so
+ 
+ CC       ?= gcc
+-CFLAGS   ?= -Wall -g -fpic
++CFLAGS   += -Wall -g -fpic
+ 
+ CXX      ?= g++
+-CXXFLAGS ?= -Wall -g -fpic
++CXXFLAGS += -Wall -g -fpic
+ 
+-LDFLAGS  ?= -Wall -g
++LDFLAGS  += -Wall -g
+ 
+ 
+ COBJS_HIDRAW = hid.o
+@@ -36,10 +36,10 @@ libhidapi-hidraw.so: $(COBJS_HIDRAW)
+ 	$(CC) $(LDFLAGS) $(LIBS_UDEV) -shared -fpic -Wl,-soname,$@.0 $^ -o $@
+ 
+ # Objects
+-$(COBJS): %.o: %.c
++%.o: %.c
+ 	$(CC) $(CFLAGS) -c $(INCLUDES) $< -o $@
+ 
+-$(CPPOBJS): %.o: %.cpp
++%.o: %.cpp
+ 	$(CXX) $(CXXFLAGS) -c $(INCLUDES) $< -o $@
+ 
+ 
