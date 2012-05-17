@@ -8,7 +8,6 @@ ESVN_REPO_URI="https://ultrastardx.svn.sourceforge.net/svnroot/ultrastardx/trunk
 
 DESCRIPTION="A free and open source karaoke game"
 HOMEPAGE="http://ultrastardx.sourceforge.net/"
-#SRC_URI="http://switch.dl.sourceforge.net/sourceforge/ultrastardx/${P}.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -27,19 +26,10 @@ RDEPEND="dev-lang/fpc
    virtual/glu
    dev-lang/lua"
 
-src_unpack() {
-   subversion_src_unpack
-
-   epatch "${FILESDIR}"/libavutil_major_version_increase.patch
-   epatch "${FILESDIR}"/libavcodec_major_version_increase.patch
-   epatch "${FILESDIR}"/libavformat_major_version_increase.patch
-   epatch "${FILESDIR}"/libswscale_major_version_increase.patch
-   epatch "${FILESDIR}"/UMediaCore_FFmpeg_use_av_register_protocol2.patch
-}
-
 src_compile() {
    egamesconf \
       $(use_with libprojectM) \
+      --enable-debug \
       || die "Configure failed!"
    emake \
    LDFLAGS="" \
@@ -55,7 +45,7 @@ src_install() {
    keepdir "${GAMES_DATADIR}"/${PN}/covers
    keepdir "${GAMES_DATADIR}"/${PN}/songs
    doicon icons/ultrastardx-icon_512.png
-   make_desktop_entry ${PN} ${PN}
+   make_desktop_entry ${PN} "Ultrastar Deluxe" ultrastardx-icon_512.png
    dodoc README*
    prepgamesdirs
 }
