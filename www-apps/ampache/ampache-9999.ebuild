@@ -4,7 +4,7 @@
 
 EAPI="2"
 
-inherit webapp depend.php git-2
+inherit webapp depend.php git-2 eutils
 
 DESCRIPTION="Ampache is a PHP-based tool for managing, updating and playing your audio files via a web interface."
 HOMEPAGE="http://www.ampache.org/"
@@ -28,6 +28,7 @@ DEPEND=""
 need_httpd_cgi
 
 src_install() {
+	epatch "${FILESDIR}"/no_logrotate.patch
 	webapp_src_preinst
 
 	dodoc docs/*
