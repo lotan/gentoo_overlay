@@ -89,7 +89,7 @@ make_config() {
    # Enable Switzerland Search
    use ch && echo "yes" || echo "no"
    # Enable Latin America
-   use dtvla && echo "yes" || echo "no"
+   #use dtvla && echo "yes" || echo "no"
    # Enable Alternate Brittain
    use uk_rt && echo "yes" || echo "no"
    # Enable Alternate Brittain 2
@@ -100,6 +100,10 @@ make_config() {
    use is && echo "yes" || echo "no"
    # Enable Italy
    use it && echo "yes" || echo "no"
+   # Italy DVB-S
+   use it_dvb && echo "yes" || echo "no"
+   # India
+   use in && echo "yes" || echo "no"
    # Enable North America using DataDirect
    use na_dd && echo "yes" || echo "no"
    # Enable North America channel icons
@@ -111,11 +115,11 @@ make_config() {
    # Enable Spain Digital
    # use es_digital && echo "yes" || echo "no"
    # Israel Temporary Disabled
-   # use il && echo "yes" || echo "no"
+   use il && echo "yes" || echo "no"
    #echo "no"
    # Enable Spain Alternatives
    use es_laguiatv && echo "yes" || echo "no"
-   use es_miguiatv && echo "yes" || echo "no"
+   #use es_miguiatv && echo "yes" || echo "no"
    # Enable Netherlands
    #use nl  && echo "yes" || echo "no"
    # Enable Alternate Netherlands
@@ -123,7 +127,7 @@ make_config() {
    # Enable Hungary and Romania
    use huro  && echo "yes" || echo "no"
    # Enable Denmark
-   use dk && echo "yes" || echo "no"
+   use dk_dr && echo "yes" || echo "no"
    # Enable Japan
    #use jp  && echo "yes" || echo "no"
    # Enable Sweden
@@ -131,17 +135,23 @@ make_config() {
    # Enable Croatia
    use hr && echo "yes" || echo "no"
    # Enable Norway Gfeed
-   use no_gf && echo "yes" || echo "no"
+   use no_gfeed && echo "yes" || echo "no"
+   # German speaking
+   use eu_egon && echo "yes" || echo "no"
+   # Sweden
+   use se_tvzon && echo "yes" || echo "no"
    # Enable France
-   use fr  && echo "yes" || echo "no"
+   use fr && echo "yes" || echo "no"
+   # Enable France
+   use fr_kazer && echo "yes" || echo "no"
    # Enable Norway
    #use no  && echo "yes" || echo "no"
    # Enable Portugal
-   use pt  && echo "yes" || echo "no"
+   use pt_meo && echo "yes" || echo "no"
    # Enable South Africa
-   #use za  && echo "yes" || echo "no"
+   use za && echo "yes" || echo "no"
    # Enable Europe epg
-   use eu_epg && echo "yes" || echo "no"
+   use eu_epgdata && echo "yes" || echo "no"
    # Enable combiner
    use tv_combiner && echo "yes" || echo "no"
    # Enable GUI checking.
@@ -149,9 +159,9 @@ make_config() {
    # Enable CGI support
    use tv_pick_cgi && echo "yes" || echo "no"
    # Enable Estonia
-   use ee && echo "yes" || echo "no"
+   #use ee && echo "yes" || echo "no"
    # Enable Reunion Island
-   use re && echo "yes" || echo "no"
+   #use re && echo "yes" || echo "no"
    # Enable Caledonie Island
    #use nc && echo "yes" || echo "no"
    # Enable North America DirecTV
