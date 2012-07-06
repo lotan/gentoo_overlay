@@ -1,0 +1,194 @@
+diff -Naur xpra.orig//win32/gui.py xpra//win32/gui.py
+--- xpra.orig//win32/gui.py	2012-07-06 10:38:33.019276154 +0200
++++ xpra//win32/gui.py	2012-07-06 10:39:16.932971605 +0200
+@@ -10,12 +10,14 @@
+ 
+ from xpra.deque import maxdeque
+ from xpra.platform.client_extras_base import ClientExtrasBase, WIN32_LAYOUTS
+-from xpra.platform.default_clipboard import ClipboardProtocolHelper
++#from xpra.platform.default_clipboard import ClipboardProtocolHelper
+ from xpra.keys import get_gtk_keymap
+ from wimpiggy.log import Logger
+ log = Logger()
+ 
+-
++from xpra.win32.w32clipboard import ClipboardProtocolHelper
++assert ClipboardProtocolHelper
++ 
+ class ClientExtras(ClientExtrasBase):
+     def __init__(self, client, opts):
+         ClientExtrasBase.__init__(self, client, opts)
+diff -Naur xpra.orig//win32/w32clipboard.py xpra//win32/w32clipboard.py
+--- xpra.orig//win32/w32clipboard.py	1970-01-01 01:00:00.000000000 +0100
++++ xpra//win32/w32clipboard.py	2012-07-06 10:39:16.932971605 +0200
+@@ -0,0 +1,67 @@
++import win32ui, win32clipboard, win32con, win32api, win32gui
++import gtk, gobject
++
++from wimpiggy.log import Logger
++log = Logger()
++
++class ClipboardProtocolHelper(object):
++    def __init__(self, send_packet_cb):
++        self.send = send_packet_cb
++
++        self.hPrev = 0
++        self.first = True
++        self.win = win32ui.CreateFrame()
++        self.win.CreateWindow(None, '', win32con.WS_OVERLAPPEDWINDOW)
++
++        self.win.HookMessage(self._OnDrawClipboard, win32con.WM_DRAWCLIPBOARD)
++        self.win.HookMessage(self._OnChangeCBChain, win32con.WM_CHANGECBCHAIN)
++        self.win.HookMessage(self._OnDestroy, win32con.WM_DESTROY)
++
++        try:
++            self.hPrev = win32clipboard.SetClipboardViewer(self.win.GetSafeHwnd())
++        except win32api.error, err:
++            if win32api.GetLastError () == 0:
++                # information that there is no other window in chain
++                pass
++            else:
++                raise
++        gobject.timeout_add(10, win32gui.PumpWaitingMessages)
++
++    def _OnChangeCBChain(self, *args):
++        msg, wParam, lParam = args[-1][1:4]
++        if self.hPrev == wParam:
++            # repair the chain
++            self.hPrev = lParam
++            if self.hPrev:
++                # pass the message to the next window in chain
++                win32api.SendMessage(self.hPrev, msg, wParam, lParam)
++
++    def _OnDrawClipboard(self, *args):
++        msg, wParam, lParam = args[-1][1:4]
++        if self.first:
++            self.first = False
++        else:
++            win32clipboard.OpenClipboard()
++            self.send(["clipboard-data", win32clipboard.GetClipboardData()])
++            win32clipboard.CloseClipboard()
++            if self.hPrev:
++                # pass the message to the next window in chain
++                win32api.SendMessage(self.hPrev, msg, wParam, lParam)
++
++    def _OnDestroy(self):
++        if self.hPrev:
++            win32clipboard.ChangeClipboardChain(self.win.GetSafeHwnd(), self.hPrev)
++        else:
++            win32clipboard.ChangeClipboardChain(self.win.GetSafeHwnd(), 0)
++
++    def send_all_tokens(self):
++        pass
++
++    def process_clipboard_packet(self, packet):
++        packet_type = packet[0]
++        if packet_type == "clipboard-data":
++            (_, data) = packet
++            win32clipboard.OpenClipboard()
++            win32clipboard.EmptyClipboard()
++            win32clipboard.SetClipboardData(win32clipboard.CF_TEXT, data)
++            win32clipboard.CloseClipboard()
+diff -Naur xpra.orig//xposix/xclipboard.py xpra//xposix/xclipboard.py
+--- xpra.orig//xposix/xclipboard.py	2012-07-06 10:38:33.019276154 +0200
++++ xpra//xposix/xclipboard.py	2012-07-06 10:44:32.099785882 +0200
+@@ -3,40 +3,68 @@
+ # Parti is released under the terms of the GNU GPL v2, or, at your option, any
+ # later version. See the file COPYING for details.
+ 
+-import struct
++#import struct
++import gtk, gobject
+ 
+-from wimpiggy.lowlevel import (gdk_atom_objects_from_gdk_atom_array, #@UnresolvedImport
+-                               gdk_atom_array_from_gdk_atom_objects) #@UnresolvedImport
++#from wimpiggy.lowlevel import (gdk_atom_objects_from_gdk_atom_array, #@UnresolvedImport
++#                               gdk_atom_array_from_gdk_atom_objects) #@UnresolvedImport
+ from wimpiggy.log import Logger
+ log = Logger()
+ 
+-from xpra.platform.clipboard_base import ClipboardProtocolHelperBase
+-
+-class ClipboardProtocolHelper(ClipboardProtocolHelperBase):
+-    """ This clipboard helper adds the ability to parse raw X11 atoms
+-        to and from a form suitable for transport over the wire.
+-    """
++#from xpra.platform.clipboard_base import ClipboardProtocolHelperBase
++#
++#class ClipboardProtocolHelper(ClipboardProtocolHelperBase):
++#    """ This clipboard helper adds the ability to parse raw X11 atoms
++#        to and from a form suitable for transport over the wire.
++#    """
++class ClipboardProtocolHelper(object):
+ 
+     def __init__(self, send_packet_cb):
+-        ClipboardProtocolHelperBase.__init__(self, send_packet_cb, ["CLIPBOARD", "PRIMARY", "SECONDARY"])
+-
+-    def _do_munge_raw_selection_to_wire(self, target, ype, format, data):
+-        if format == 32 and type in ("ATOM", "ATOM_PAIR"):
+-            # Convert to strings and send that. Bizarrely, the atoms are
+-            # not actual X atoms, but an array of GdkAtom's reinterpreted
+-            # as a byte buffer.
+-            atoms = gdk_atom_objects_from_gdk_atom_array(data)
+-            atom_names = [str(atom) for atom in atoms]
+-            if target=="TARGET":
+-                atom_names.remove("SAVE_TARGETS")
+-                atom_names.remove("COMPOUND_TEXT")
+-            return ("atoms", atom_names)
+-        return ClipboardProtocolHelperBase._do_munge_raw_selection_to_wire(self, target, type, format, data)
+-
+-    def _munge_wire_selection_to_raw(self, encoding, datatype, format, data):
+-        if encoding == "atoms":
+-            import gtk.gdk
+-            gdk_atoms = [gtk.gdk.atom_intern(a) for a in data]
+-            atom_array = gdk_atom_array_from_gdk_atom_objects(gdk_atoms)
+-            return struct.pack("=" + "I" * len(atom_array), *atom_array)
+-        return ClipboardProtocolHelperBase._munge_wire_selection_to_raw(self, encoding, datatype, format, data)
++#        ClipboardProtocolHelperBase.__init__(self, send_packet_cb, ["CLIPBOARD", "PRIMARY", "SECONDARY"])
++        self.send = send_packet_cb
++        self._clipboard = gtk.clipboard_get()
++        self._text = self._clipboard.wait_for_text()
++        gobject.timeout_add(500, self._poll_clipboard)
++
++#    def _do_munge_raw_selection_to_wire(self, target, ype, format, data):
++#        if format == 32 and type in ("ATOM", "ATOM_PAIR"):
++#            # Convert to strings and send that. Bizarrely, the atoms are
++#            # not actual X atoms, but an array of GdkAtom's reinterpreted
++#            # as a byte buffer.
++#            atoms = gdk_atom_objects_from_gdk_atom_array(data)
++#            atom_names = [str(atom) for atom in atoms]
++#            if target=="TARGET":
++#                atom_names.remove("SAVE_TARGETS")
++#                atom_names.remove("COMPOUND_TEXT")
++#            return ("atoms", atom_names)
++#        return ClipboardProtocolHelperBase._do_munge_raw_selection_to_wire(self, target, type, format, data)
++#
++#    def _munge_wire_selection_to_raw(self, encoding, datatype, format, data):
++#        if encoding == "atoms":
++#            import gtk.gdk
++#            gdk_atoms = [gtk.gdk.atom_intern(a) for a in data]
++#            atom_array = gdk_atom_array_from_gdk_atom_objects(gdk_atoms)
++#            return struct.pack("=" + "I" * len(atom_array), *atom_array)
++#        return ClipboardProtocolHelperBase._munge_wire_selection_to_raw(self, encoding, datatype, format, data)
++
++    def _clipboard_text_received(self, clipboard, text, data):
++        if not text or text == '':
++            return
++        if text <> self._text:
++            self._text = text
++            self.send(["clipboard-data", text])
++
++    def _poll_clipboard(self):
++        self._clipboard.request_text(self._clipboard_text_received)
++        return True
++
++    # Used by the client during startup:
++    def send_all_tokens(self):
++    	pass
++
++    def process_clipboard_packet(self, packet):
++        packet_type = packet[0]
++        if packet_type == "clipboard-data":
++            (_, data) = packet
++            self._clipboard.set_text(data)
++            self._clipboard.store()
