@@ -1,0 +1,15 @@
+--- a/coherence/backends/ampache_storage.py	2012-08-17 16:08:25.744787383 +0200
++++ b/coherence/backends/ampache_storage.py	2012-08-17 16:09:35.069306607 +0200
+@@ -412,7 +412,11 @@
+         self.title = element.find('title').text
+         self.artist = element.find('artist').text
+         self.album = element.find('album').text
+-        self.genre = element.find('genre').text
++        genre = element.find('genre')
++        if genre:
++            self.genre = element.find('genre').text
++        else:
++            self.genre = ""
+         self.track_nr = element.find('track').text
+ 
+         try:

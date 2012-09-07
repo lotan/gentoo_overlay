@@ -1,0 +1,27 @@
+From 90335bcea590d0bb81c856989cb4d6b8c323ed6f Mon Sep 17 00:00:00 2001
+From: Christoph Glaubitz <chris@chrigl.de>
+Date: Sun, 3 Apr 2011 00:13:24 +0200
+Subject: [PATCH] Fix for utf8 in file and directory names
+
+---
+ coherence/upnp/core/soap_lite.py |    4 ++--
+ 1 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/coherence/upnp/core/soap_lite.py b/coherence/upnp/core/soap_lite.py
+index 72db4b4..a3ba0be 100644
+--- a/coherence/upnp/core/soap_lite.py
++++ b/coherence/upnp/core/soap_lite.py
+@@ -90,8 +90,8 @@ def build_soap_call(method, arguments, is_response=False,
+ 
+         for arg_name, arg_val in arguments.iteritems():
+             arg_type = type_map[type(arg_val)]
+-            if arg_type == 'xsd:string' and type(arg_val) == unicode:
+-                arg_val = arg_val.encode('utf-8')
++            if arg_type == 'xsd:string' and type(arg_val) == str:
++                arg_val = unicode(arg_val, 'utf-8')
+             if arg_type == 'xsd:int' or arg_type == 'xsd:float':
+                 arg_val = str(arg_val)
+             if arg_type == 'xsd:boolean':
+-- 
+1.7.4.2
+

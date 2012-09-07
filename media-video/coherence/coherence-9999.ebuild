@@ -8,13 +8,15 @@ PYTHON_USE_WITH="sqlite"
 SUPPORT_PYTHON_ABIS="1"
 RESTRICT_PYTHON_ABIS="2.4 3.* *-jython"
 
-inherit distutils python
+inherit distutils python subversion
 
 MY_P="Coherence-${PV}"
 
 DESCRIPTION="A framework written in Python for DLNA/UPnP components"
 HOMEPAGE="https://coherence.beebits.net/"
-SRC_URI="http://coherence.beebits.net/download/${MY_P}.tar.gz"
+ESVN_REPO_URI="https://coherence.beebits.net/svn/trunk/Coherence"
+#SRC_URI="http://coherence.beebits.net/download/${MY_P}.tar.gz"
+ESVN_OPTIONS="--trust-server-cert --non-interactive"
 
 LICENSE="MIT"
 SLOT="0"
@@ -35,6 +37,10 @@ RDEPEND="${DEPEND}
 	dev-python/tagpy"
 
 S="${WORKDIR}/${MY_P}"
+
+src_prepare() {
+	epatch "${FILESDIR}"/0001-Fix-for-utf8-in-file-and-directory-names.patch
+}
 
 src_install() {
 	DOCS="docs/*"
