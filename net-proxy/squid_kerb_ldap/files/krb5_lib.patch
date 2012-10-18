@@ -5,7 +5,7 @@
  check_ldap() {
         sys=`uname`
 -       ac_ldap_libs="lber ldap"
-+       ac_ldap_libs="lber ldap krb5"
++       ac_ldap_libs="lber ldap krb5 com_err resolv"
         ac_ldap_includedir=""
         ac_ldap_libdir=""
         if test "x$withval" != "xyes" -a "x$withval" != "x" ; then

@@ -16,7 +16,7 @@ RDEPEND=""
 DEPEND=""
 
 src_prepare() {
-	epatch "${FILESDIR}"/fix_makefile.patch
+	eautoreconf --install --force
 }
 
 src_compile() {
@@ -25,23 +25,23 @@ src_compile() {
 	then
 		emake || die "emake failed"
 	fi
-	mv libhidapi-hidraw.so libhidapi-hidraw.so.0
 
 	cd "${S}"/libusb
 	if [ -f Makefile ] || [ -f GNUmakefile ] || [ -f makefile ];
 	then
 		emake || die "emake failed"
 	fi
-	mv libhidapi-libusb.so libhidapi-libusb.so.0
 }
 
 src_install() {
 	insinto /usr/include
 	doins "${S}"/hidapi/hidapi.h || die
 
-	dolib.so "${S}"/linux/libhidapi-hidraw.so.0
-	dosym libhidapi-hidraw.so.0 /usr/$(get_libdir)/libhidapi-hidraw.so
+	dolib.so "${S}"/linux/.libs/libhidapi-hidraw.so.0.0.0
+	dosym libhidapi-hidraw.so.0.0.0 /usr/$(get_libdir)/libhidapi-hidraw.so
+	dosym libhidapi-hidraw.so.0.0.0 /usr/$(get_libdir)/libhidapi-hidraw.so.0
 
-	dolib.so "${S}"/libusb/libhidapi-libusb.so.0
-	dosym libhidapi-libusb.so.0 /usr/$(get_libdir)/libhidapi-libusb.so
+	dolib.so "${S}"/libusb/.libs/libhidapi-libusb.so.0.0.0
+	dosym libhidapi-libusb.so.0.0.0 /usr/$(get_libdir)/libhidapi-libusb.so
+	dosym libhidapi-libusb.so.0.0.0 /usr/$(get_libdir)/libhidapi-libusb.so.0
 }
