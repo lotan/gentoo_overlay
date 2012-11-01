@@ -40,6 +40,7 @@ S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	epatch "${FILESDIR}"/0001-Fix-for-utf8-in-file-and-directory-names.patch
+	epatch "${FILESDIR}"/GenreNone.patch
 }
 
 src_install() {
