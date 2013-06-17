@@ -4,7 +4,7 @@
 
 inherit eutils games flag-o-matic subversion
 
-ESVN_REPO_URI="https://ultrastardx.svn.sourceforge.net/svnroot/ultrastardx/trunk"
+ESVN_REPO_URI="svn://svn.code.sf.net/p/ultrastardx/svn/trunk"
 
 DESCRIPTION="A free and open source karaoke game"
 HOMEPAGE="http://ultrastardx.sourceforge.net/"
