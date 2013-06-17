@@ -1,0 +1,22 @@
+diff -Naur gdrivefs-9999.old/setup.py gdrivefs-9999/setup.py
+--- gdrivefs-9999.old/setup.py	2013-06-12 15:47:32.052294918 +0200
++++ gdrivefs-9999/setup.py	2013-06-12 15:49:29.610500070 +0200
+@@ -61,7 +61,7 @@
+       author_email='myselfasunder@gmail.com',
+       url='https://github.com/dsoprea/GDriveFS',
+       license='New BSD',
+-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
++      packages=find_packages(exclude=['ez_setup', 'examples', 'tests.*', 'tests']),
+       include_package_data=True,
+       zip_safe=True,
+       install_requires=[
+@@ -75,7 +75,7 @@
+       entry_points="""
+       # -*- Entry points: -*-
+       """,
+-      cmdclass={'install': custom_install
+-               },
++#      cmdclass={'install': custom_install
++#               },
+       )
+ 
