@@ -47,7 +47,7 @@ DEPEND="${RDEPEND}
 src_unpack() {
    mercurial_src_unpack
    cd "${S}" || die "cd failed"
-   epatch "${FILESDIR}"/deactivate_xscreensaver_support.patch
+#   epatch "${FILESDIR}"/deactivate_xscreensaver_support.patch
    epatch "${FILESDIR}"/add_avdecay.patch
 #   epatch "${FILESDIR}"/disable_original_volume_restore.patch
 }
