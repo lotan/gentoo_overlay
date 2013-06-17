@@ -1,0 +1,24 @@
+diff -Naur squid-3.2.9.old/helpers/external_acl/kerberos_ldap_group/support_ldap.cc squid-3.2.9/helpers/external_acl/kerberos_ldap_group/support_ldap.cc
+--- squid-3.2.9.old/helpers/external_acl/kerberos_ldap_group/support_ldap.cc	2013-03-28 17:54:17.858042083 +0100
++++ squid-3.2.9/helpers/external_acl/kerberos_ldap_group/support_ldap.cc	2013-03-28 17:58:27.558378599 +0100
+@@ -589,15 +589,15 @@
+                     if ((values = ldap_get_values_len(ld, msg, attr)) != NULL) {
+                         for (il = 0; values[il] != NULL; ++il) {
+ 
+-                            attr_value = (char **) xrealloc(attr_value, (il + 1) * sizeof(char *));
++                            attr_value = (char **) xrealloc(attr_value, (max_attr + 1) * sizeof(char *));
+                             if (!attr_value)
+                                 break;
+ 
+-                            attr_value[il] = (char *) xmalloc(values[il]->bv_len + 1);
+-                            memcpy(attr_value[il], values[il]->bv_val, values[il]->bv_len);
+-                            attr_value[il][values[il]->bv_len] = 0;
++                            attr_value[max_attr] = (char *) xmalloc(values[il]->bv_len + 1);
++                            memcpy(attr_value[max_attr], values[il]->bv_val, values[il]->bv_len);
++                            attr_value[max_attr][values[il]->bv_len] = 0;
+                         }
+-                        max_attr = il;
++                        max_attr++;
+                     }
+                     ber_bvecfree(values);
+                 }
