@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/games-arcade/ultrastar-deluxe/ultrastar-deluxe-1.1.0.ebuild,v 1.1 2008/07/04 08:41:32 frostwork Exp $
 
+EAPI=5
+
 inherit eutils games flag-o-matic subversion
 
 ESVN_REPO_URI="svn://svn.code.sf.net/p/ultrastardx/svn/trunk"
@@ -12,7 +14,7 @@ HOMEPAGE="http://ultrastardx.sourceforge.net/"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
-IUSE="libprojectM"
+IUSE="debug libprojectM"
 
 RDEPEND="dev-lang/fpc
    media-libs/sdl-image
@@ -26,11 +28,14 @@ RDEPEND="dev-lang/fpc
    virtual/glu
    dev-lang/lua"
 
-src_compile() {
+src_configure() {
    egamesconf \
       $(use_with libprojectM) \
-      --enable-debug \
+	  $(use_enable debug) \
       || die "Configure failed!"
+}
+
+src_compile() {
    emake \
    LDFLAGS="" \
    || die "emake failed"
