@@ -27,12 +27,19 @@ DEPEND="${RDEPEND}"
 
 PATCHES=( "${FILESDIR}"/no_symlinks.patch )
 
+python_prepare() {
+	sed -i -e "1,1 s_#! */usr/bin/python_#!${PYTHON}_" \
+		${BUILD_DIR}/../gdrivefs/tools/gdfs.py \
+		${BUILD_DIR}/../gdrivefs/tools/gdfstool.py \
+		${BUILD_DIR}/../gdrivefs/tools/gdfsdumpentry.py
+}
+
 python_install() {
 	distutils-r1_python_install
-	exeinto /usr/sbin
-	doexe gdrivefs/tools/gdfs
-	doexe gdrivefs/tools/gdfstool
-	doexe gdrivefs/tools/gdfsdumpentry
-#	dosym $(python_get_sitedir)/gdrivefs/tools/gdfs /usr/sbin/gdfs
-#	dosym $(python_get_sitedir)/gdrivefs/tools/gdfstool /usr/sbin/gdfstool
+	fperms a+x $(python_get_sitedir)/gdrivefs/tools/gdfs.py
+	fperms a+x $(python_get_sitedir)/gdrivefs/tools/gdfstool.py
+	fperms a+x $(python_get_sitedir)/gdrivefs/tools/gdfsdumpentry.py
+	dosym $(python_get_sitedir)/gdrivefs/tools/gdfs.py /usr/sbin/gdfs
+	dosym $(python_get_sitedir)/gdrivefs/tools/gdfstool.py /usr/sbin/gdfstool
+	dosym $(python_get_sitedir)/gdrivefs/tools/gdfsdumpentry.py /usr/sbin/gdfsdumpentry
 }
