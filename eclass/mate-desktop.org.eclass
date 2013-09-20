@@ -1,0 +1,1 @@
+../../mate/eclass/mate-desktop.org.eclass
