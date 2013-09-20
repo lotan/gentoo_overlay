@@ -25,7 +25,7 @@ IUSE=""
 
 # deps are not exact and need some work
 DEPEND="dev-python/louie
-	dev-python/twisted
+	dev-python/twisted-core
 	dev-python/twisted-web
 	dev-python/configobj
 	dev-python/gst-python
