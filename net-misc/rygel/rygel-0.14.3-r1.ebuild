@@ -62,6 +62,7 @@ pkg_setup() {
 	G2CONF="${G2CONF}
 		--enable-gst-launch-plugin
 		--enable-mediathek-plugin
+		--enable-debug
 		$(use_enable nls)
 		$(use_enable sqlite media-export-plugin)
 		$(use_enable test tests)
