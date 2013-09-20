@@ -24,7 +24,7 @@ IUSE="examples $(printf 'linguas_%s ' ${IUSE_LINGUAS})"
 RDEPEND="
 	dev-python/mysql-python
 	dev-python/lxml
-	dev-python/imaging
+	virtual/python-imaging
 	dev-python/numpy
 	dev-python/pycrypto
 	dev-python/django
