@@ -4,7 +4,7 @@
 
 EAPI=2
 
-inherit linux-mod
+inherit linux-mod eutils
 
 DESCRIPTION="Fast kernel-land pseudo-random number generator using the RC4 algorithm"
 HOMEPAGE="http://billauer.co.il/frandom.html"
@@ -23,6 +23,7 @@ MODULE_NAMES="frandom(misc)"
 
 src_prepare() {
 	sed -i -e "s:\$(shell uname -r):${KV_FULL}:" "${S}"/Makefile || die "sed failed"
+	epatch ${FILESDIR}/"correct_udev_rule.patch"
 }
 
 src_install() {
