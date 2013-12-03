@@ -40,6 +40,7 @@ python_install() {
 	fperms a+x $(python_get_sitedir)/gdrivefs/tools/gdfstool
 	fperms a+x $(python_get_sitedir)/gdrivefs/tools/gdfsuninstall
 	dosym $(python_get_sitedir)/gdrivefs/tools/gdfs /usr/sbin/gdfs
+	dosym $(python_get_sitedir)/gdrivefs/tools/gdfs /sbin/mount.gdfs
 	dosym $(python_get_sitedir)/gdrivefs/tools/gdfstool /usr/sbin/gdfstool
 	dosym $(python_get_sitedir)/gdrivefs/tools/gdfsuninstall /usr/sbin/gdfsuninstall
 }
