@@ -2,7 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-plugins/vdr-nordlichtsepg/vdr-nordlichtsepg-0.9_pre1.ebuild,v 1.2 2008/03/31 01:58:45 mr_bones_ Exp $
 
-inherit vdr-plugin
+EAPI="5"
+
+inherit vdr-plugin-2
 
 IUSE=""
 SLOT="0"
@@ -20,4 +22,9 @@ DEPEND=">=media-video/vdr-1.3.31"
 
 S="${WORKDIR}/${PN#vdr-}-${PV%_pre*}"
 
-PATCHES="${FILESDIR}/vdr-nordlichtsepg-0.9-test1-utf8fix.diff ${FILESDIR}/nordlichtsepg-0.9-test1-progressbar_fix.diff ${FILESDIR}/nordlichtsepg-0.9-test1-record_button_fix.diff"
+src_prepare() {
+   epatch "${FILESDIR}/vdr-nordlichtsepg-0.9-test1-utf8fix.diff"
+   epatch "${FILESDIR}/nordlichtsepg-0.9-test1-progressbar_fix.diff"
+   epatch "${FILESDIR}/nordlichtsepg-0.9-test1-record_button_fix.diff"
+   vdr-plugin-2_src_prepare
+}
