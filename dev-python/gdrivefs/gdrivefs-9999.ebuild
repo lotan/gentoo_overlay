@@ -7,7 +7,7 @@ EGIT_REPO_URI="git://github.com/dsoprea/GDriveFS.git
 	https://github.com/dsoprea/GDriveFS.git"
 #endif
 
-inherit distutils-r1
+inherit distutils-r1 eutils
 
 DESCRIPTION="An innovative FUSE wrapper for Google Drive."
 HOMEPAGE="https://github.com/dsoprea/GDriveFS"
@@ -24,6 +24,10 @@ RDEPEND="
 	dev-python/fusepy
 	dev-python/google-api-python-client"
 DEPEND="${RDEPEND}"
+
+src_prepare() {
+	epatch "${FILESDIR}"/exclude_all_tests.patch
+}
 
 python_install() {
 	distutils-r1_python_install
