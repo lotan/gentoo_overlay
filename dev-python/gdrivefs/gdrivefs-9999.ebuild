@@ -18,11 +18,14 @@ KEYWORDS="~amd64"
 IUSE=""
 
 RDEPEND="
-	dev-python/google-appengine
-	dev-python/httplib2
-	dev-python/python-dateutil
-	dev-python/fusepy
-	dev-python/google-api-python-client"
+	>=dev-python/fusepy-2.0.2
+	>=dev-python/gevent-1.0
+	>=dev-python/gipc-0.4.0
+	>=dev-python/google-api-python-client-1.2
+	>=dev-python/greenlet-0.4.2
+	>=dev-python/httplib2-0.8
+	>=dev-python/python-dateutil-2.2
+	>=dev-python/six-1.7.3"
 DEPEND="${RDEPEND}"
 
 src_prepare() {
