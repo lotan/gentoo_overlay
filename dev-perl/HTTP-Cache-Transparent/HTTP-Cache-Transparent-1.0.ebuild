@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/dev-perl/HTTP-Cache-Transparent/HTTP-Cache-Transparent-0.7.ebuild,v 1.9 2007/03/05 12:03:56 ticho Exp $
 
+EAPI=5
+
 inherit perl-module
 
 DESCRIPTION="Cache the result of http get-requests persistently."

@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-tv/xmltv/xmltv-0.5.55.ebuild,v 1.4 2009/07/19 17:58:06 tove Exp $
 
+EAPI=5
+
 inherit eutils perl-module cvs
 
 DESCRIPTION="Set of utilities to manage TV listings stored in the XMLTV format."
