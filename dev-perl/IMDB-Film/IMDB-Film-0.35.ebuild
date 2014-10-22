@@ -2,6 +2,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $
 
+EAPI=5
+
 inherit perl-module
 
 DESCRIPTION="IMDB::Film - Acquire information from imdb.com"
