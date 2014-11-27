@@ -12,6 +12,7 @@ HOMEPAGE="http://www.ampache.org/"
 if [[ ${PV} = *9999* ]]; then
 inherit git-2
 EGIT_REPO_URI="git://github.com/ampache/ampache.git"
+EGIT_BRANCH="develop"
 else
 SRC_URI="https://github.com/ampache/ampache/archive/${PV}.tar.gz"
 fi
