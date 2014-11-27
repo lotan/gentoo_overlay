@@ -6,7 +6,7 @@ EAPI="2"
 
 DESCRIPTION="BBC Iplayer downloading application"
 HOMEPAGE="http://linuxcentre.net/get_iplayer/"
-SRC_URI="ftp://ftp.infradead.org/pub/get_iplayer/${P}.tar.gz"
+SRC_URI="https://github.com/dinkypumpkin/get_iplayer/archive/v${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -27,4 +27,3 @@ src_install() {
 	insinto /usr/share/${PN}/plugins
 	doins plugins/*
 }
-
