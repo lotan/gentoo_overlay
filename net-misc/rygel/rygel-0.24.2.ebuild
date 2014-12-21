@@ -1,19 +1,19 @@
 # Copyright 1999-2014 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/rygel/rygel-0.22.1.ebuild,v 1.3 2014/05/04 12:12:15 pacho Exp $
+# $Header: /var/cvsroot/gentoo-x86/net-misc/rygel/rygel-0.22.3.ebuild,v 1.1 2014/09/04 15:29:57 pacho Exp $
 
 EAPI="5"
 GCONF_DEBUG="no"
 
-inherit gnome2 virtualx autotools
+inherit gnome2 virtualx
 
 DESCRIPTION="Rygel is an open source UPnP/DLNA MediaServer"
 HOMEPAGE="https://wiki.gnome.org/Projects/Rygel"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86"
-IUSE="X nls +sqlite tracker test transcode"
+KEYWORDS="~amd64 ~x86"
+IUSE="X +sqlite tracker test transcode"
 
 # The deps for tracker? and transcode? are just the earliest available
 # version at the time of writing this ebuild
@@ -28,8 +28,9 @@ RDEPEND="
 	>=net-libs/gssdp-0.13
 	>=net-libs/gupnp-0.19
 	>=net-libs/gupnp-av-0.12.4
-	>=net-libs/libsoup-2.42:2.4
+	>=net-libs/libsoup-2.44:2.4
 	>=sys-apps/util-linux-2.20
+	>=media-libs/libmediaart-0.7.0
 	x11-misc/shared-mime-info
 	sqlite? (
 		>=dev-db/sqlite-3.5:3
@@ -61,7 +62,6 @@ src_prepare() {
 		-i tests/Makefile.in || die
 
 	gnome2_src_prepare
-	eautoreconf
 }
 
 src_configure() {
@@ -72,7 +72,7 @@ src_configure() {
 		--enable-gst-launch-plugin \
 		--enable-mediathek-plugin \
 		--with-media-engine=gstreamer \
-		$(use_enable nls) \
+		--enable-nls \
 		$(use_enable sqlite media-export-plugin) \
 		$(use_enable test tests) \
 		$(use_enable tracker tracker-plugin) \
