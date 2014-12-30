@@ -8,7 +8,7 @@ HOMEPAGE="https://github.com/Lekensteyn/ssh-blocker"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="systemd"
 
 RDEPEND="net-firewall/ipset"
 
@@ -16,4 +16,9 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	eautoreconf --install --force
+}
+
+src_configure() {
+	econf \
+		$(use_enable systemd)
 }
