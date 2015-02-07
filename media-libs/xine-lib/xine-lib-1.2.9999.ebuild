@@ -1,32 +1,42 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/media-libs/xine-lib/xine-lib-1.2.1.ebuild,v 1.2 2012/02/25 16:41:18 ago Exp $
+# $Header: /var/cvsroot/gentoo-x86/media-libs/xine-lib/xine-lib-1.2.9999.ebuild,v 1.29 2015/02/01 22:53:32 mgorny Exp $
 
-EAPI=4
+EAPI=5
 
-unset _live_inherits
+inherit flag-o-matic libtool multilib
 
 if [[ ${PV} == *9999* ]]; then
-	EHG_REPO_URI="http://hg.debian.org/hg/xine-lib/xine-lib-1.2"
-	_live_inherits="autotools mercurial"
+#	EHG_REPO_URI="http://hg.debian.org/hg/xine-lib/xine-lib-1.2"
+	EGIT_REPO_URI="git://projects.vdr-developer.org/xine-lib.git"
+	inherit autotools git-2 eutils
+	unset NLS_IUSE
+	NLS_DEPEND="sys-devel/gettext"
+	NLS_RDEPEND="virtual/libintl"
 else
-	KEYWORDS="amd64 ~hppa ~ppc ~ppc64 ~x86 ~x86-fbsd"
+	KEYWORDS="~amd64 ~hppa ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd"
 	SRC_URI="mirror://sourceforge/xine/${P}.tar.xz"
+	NLS_IUSE="nls"
+	NLS_DEPEND="nls? ( sys-devel/gettext )"
+	NLS_RDEPEND="nls? ( virtual/libintl )"
 fi
-
-inherit eutils libtool multilib ${_live_inherits}
 
 DESCRIPTION="Core libraries for Xine movie player"
 HOMEPAGE="http://xine.sourceforge.net/"
 
 LICENSE="GPL-2"
 SLOT="1"
-IUSE="a52 aac aalib +alsa altivec bluray +css directfb dts dvb dxr3 fbcon flac fusion gtk imagemagick ipv6 jack libcaca mad +mmap mng modplug musepack nls opengl oss pulseaudio real samba sdl speex theora truetype v4l vcd vdpau vdr vidix +vis vorbis wavpack win32codecs +X +xcb xinerama +xv xvmc"
+IUSE="a52 aac aalib +alsa altivec bluray +css directfb dts dvb dxr3 fbcon flac fusion gtk imagemagick ipv6 jack jpeg libav libcaca mad +mmap mng modplug musepack opengl oss pulseaudio samba sdl speex theora truetype v4l vaapi vcd vdpau vdr vidix +vis vorbis vpx wavpack +X +xcb xinerama +xv xvmc ${NLS_IUSE}"
 
-RDEPEND="dev-libs/libxdg-basedir
+RDEPEND="${NLS_RDEPEND}
+	dev-libs/libxdg-basedir
 	media-libs/libdvdnav
 	sys-libs/zlib
-	virtual/ffmpeg
+	!libav? ( media-video/ffmpeg:0= )
+	libav? (
+		media-libs/libpostproc:0=
+		media-video/libav:0=
+	)
 	virtual/libiconv
 	a52? ( media-libs/a52dec )
 	aac? ( media-libs/faad2 )
@@ -42,22 +52,17 @@ RDEPEND="dev-libs/libxdg-basedir
 	gtk? ( x11-libs/gdk-pixbuf:2 )
 	imagemagick? ( || ( media-gfx/imagemagick media-gfx/graphicsmagick ) )
 	jack? ( >=media-sound/jack-audio-connection-kit-0.100 )
+	jpeg? ( virtual/jpeg:0 )
 	libcaca? ( media-libs/libcaca )
 	mad? ( media-libs/libmad )
 	mng? ( media-libs/libmng )
 	modplug? ( >=media-libs/libmodplug-0.8.8.1 )
 	musepack? ( >=media-sound/musepack-tools-444 )
-	nls? ( virtual/libintl )
 	opengl? (
 		virtual/glu
 		virtual/opengl
 		)
 	pulseaudio? ( media-sound/pulseaudio )
-	real? (
-		amd64? ( media-libs/amd64codecs )
-		x86? ( media-libs/win32codecs )
-		x86-fbsd? ( media-libs/win32codecs )
-		)
 	samba? ( net-fs/samba )
 	sdl? ( media-libs/libsdl )
 	speex? (
@@ -73,6 +78,7 @@ RDEPEND="dev-libs/libxdg-basedir
 		media-libs/freetype:2
 		)
 	v4l? ( media-libs/libv4l )
+	vaapi? ( x11-libs/libva )
 	vcd? (
 		>=media-video/vcdimager-0.7.23
 		dev-libs/libcdio[-minimal]
@@ -82,8 +88,8 @@ RDEPEND="dev-libs/libxdg-basedir
 		media-libs/libogg
 		media-libs/libvorbis
 		)
+	vpx? ( media-libs/libvpx )
 	wavpack? ( media-sound/wavpack )
-	win32codecs? ( media-libs/win32codecs )
 	X? (
 		x11-libs/libX11
 		x11-libs/libXext
@@ -93,11 +99,10 @@ RDEPEND="dev-libs/libxdg-basedir
 	xv? ( x11-libs/libXv )
 	xvmc? ( x11-libs/libXvMC )"
 DEPEND="${RDEPEND}
+	${NLS_DEPEND}
 	app-arch/xz-utils
-	dev-util/pkgconfig
+	virtual/pkgconfig
 	>=sys-devel/libtool-2.2.6b
-	bluray? ( !media-libs/libbluray-xine )
-	nls? ( sys-devel/gettext )
 	oss? ( virtual/os-headers )
 	v4l? ( virtual/os-headers )
 	X? (
@@ -113,21 +118,24 @@ REQUIRED_USE="vidix? ( || ( X fbcon ) )
 	xinerama? ( X )"
 
 src_prepare() {
-	epatch "${FILESDIR}"/logarithmic_volume.patch
-	epatch "${FILESDIR}"/pulse_low_latency_buffers-1.2.1.patch
-#	epatch "${FILESDIR}"/debug_opengl.patch
-
 	sed -i -e '/define VDR_ABS_FIFO_DIR/s|".*"|"/var/vdr/xine"|' src/vdr/input_vdr.c || die
 
 	if [[ ${PV} == *9999* ]]; then
-		eautopoint
+		epatch_user
 		eautoreconf
 	else
 		elibtoolize
 	fi
+
+	local x
+	for x in 0 1 2 3; do
+		sed -i -e "/^O${x}_CFLAGS=\"-O${x}\"/d" configure || die
+	done
 }
 
 src_configure() {
+	[[ ${CHOST} == i?86-* ]] && append-flags -fomit-frame-pointer #422519
+
 	local win32dir #197236
 	if has_multilib_profile; then
 		win32dir=/usr/$(ABI="x86" get_libdir)/win32
@@ -135,9 +143,15 @@ src_configure() {
 		win32dir=/usr/$(get_libdir)/win32
 	fi
 
+	local myconf=()
+	[[ ${PV} == *9999* ]] || myconf=( $(use_enable nls) )
+
+	if ! use libav && has_version '>=media-video/ffmpeg-2.2:0'; then
+		myconf+=( --enable-avformat ) #507474
+	fi
+
 	econf \
 		$(use_enable ipv6) \
-		$(use_enable nls) \
 		$(use_enable altivec) \
 		$(use_enable vis) \
 		--disable-optimizations \
@@ -152,6 +166,7 @@ src_configure() {
 		$(use_enable xinerama) \
 		$(use_enable xvmc) \
 		$(use_enable vdpau) \
+		$(use_enable vaapi) \
 		$(use_enable dvb) \
 		--disable-gnomevfs \
 		$(use_enable samba) \
@@ -162,13 +177,15 @@ src_configure() {
 		$(use_enable a52 a52dec) \
 		$(use_enable aac faad) \
 		$(use_enable gtk gdkpixbuf) \
+		$(use_enable jpeg libjpeg) \
 		$(use_enable dts) \
 		$(use_enable mad) \
 		$(use_enable modplug) \
 		$(use_enable musepack) \
 		$(use_enable mng) \
-		$(use_enable real real-codecs) \
-		$(use_enable win32codecs w32dll) \
+		--disable-real-codecs \
+		--disable-w32dll \
+		$(use_enable vpx) \
 		$(use_with truetype freetype) $(use_with truetype fontconfig) \
 		$(use_with X x) \
 		$(use_with alsa) \
@@ -188,7 +205,13 @@ src_configure() {
 		$(use_with vorbis) \
 		--with-real-codecs-path=/usr/$(get_libdir)/codecs \
 		--with-w32-path=${win32dir} \
-		$(use_with wavpack)
+		$(use_with wavpack) \
+		"${myconf[@]}"
+}
+
+src_compile() {
+	# enable verbose building, bug #448140
+	emake V=1
 }
 
 src_install() {
