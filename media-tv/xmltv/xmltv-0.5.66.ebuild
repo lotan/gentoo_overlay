@@ -10,7 +10,7 @@ DESCRIPTION="Set of utilities to manage TV listings stored in the XMLTV format."
 HOMEPAGE="http://membled.com/work/apps/xmltv/"
 SRC_URI="mirror://sourceforge/xmltv/${P}.tar.bz2"
 
-IUSE="ar ch uk_rt uk_bleb is it na_dd na_icons fi es_laguiatv es_miguiatv ee re huro dk se_swedb hr no_gf fr pt eu_epg tv_combiner tv_pick_cgi tv_check na_dtv"
+IUSE="ar ch dtv_la uk_rt uk_bleb uk_atlas uk_tvguide is it it_dvb na_dd fi fi_sv il es_laguiatv nl huro dk_dr se_swedb hr no_gfeed eu_egon se_tvzon fr fr_kazer pt pt_meo za eu_epgdata tv_combiner tv_check tv_pick_cgi na_dtv tr na_tvmedia"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~ppc ~x86 ~x86-linux"
@@ -47,111 +47,99 @@ RDEPEND=">=dev-perl/libwww-perl-5.65
 	dev-perl/XML-LibXML
 	dev-perl/DateTime"
 
-	#nl_wolf? ( dev-perl/HTML-Tree )
 DEPEND="${RDEPEND}
-	na_dd? ( na_icons? ( dev-perl/HTML-TableExtract >=dev-perl/WWW-Mechanize-1.02 ) )
-	dk? ( dev-perl/HTML-Tree )
 	fi? ( dev-perl/HTML-Tree )
 	fr? ( >=dev-perl/HTML-Parser-3.34 dev-perl/HTML-Tree )
 	huro? ( dev-perl/HTML-Tree )
 	it? ( dev-perl/XML-Simple )
 	is? ( dev-perl/XML-LibXSLT )
 	na_dd? ( dev-perl/SOAP-Lite dev-perl/TermReadKey )
-	no_gf? ( dev-perl/HTTP-Cache-Transparent dev-perl/IO-stringy dev-perl/XML-LibXML )
+	no_gfeed? ( dev-perl/HTTP-Cache-Transparent dev-perl/IO-stringy dev-perl/XML-LibXML )
 	pt? ( dev-perl/HTML-Tree dev-perl/Unicode-UTF8simple )
-	eu_epg? ( dev-perl/Archive-Zip )
+	eu_epgdata? ( dev-perl/Archive-Zip )
 	se_swedb? ( dev-perl/HTTP-Cache-Transparent dev-perl/IO-stringy dev-perl/XML-LibXML )
 	hr? ( dev-perl/HTTP-Cache-Transparent dev-perl/IO-stringy dev-perl/XML-LibXML )
 	uk_rt? ( dev-perl/HTTP-Cache-Transparent dev-perl/IO-stringy )
 	uk_bleb? ( dev-perl/Archive-Zip dev-perl/IO-stringy )
-	ee? ( dev-perl/IO-stringy )
-	re? ( dev-perl/Lingua-EN-Numbers-Ordinate )
 	tv_combiner? ( dev-perl/XML-LibXML )
 	tv_check? ( dev-perl/perl-tk dev-perl/Tk-TableMatrix )
 	tv_pick_cgi? ( virtual/perl-CGI dev-perl/Lingua-EN-Numbers-Ordinate )
 	na_dtv? ( >=dev-perl/WWW-Mechanize-1.02 dev-perl/TimeDate dev-perl/IO-stringy dev-perl/XML-LibXML )
 	"
-
 make_config() {
-	# Never except default configuration
-	echo "no"
+    # Never except default configuration
+    echo "no"
 
-	# Enable Australian
-	#use au && echo "yes" || echo "no"
-	# Enable Agentina
-	use ar && echo "yes" || echo "no"
-	# Enable Brazil
-	#use br && echo "yes" || echo "no"
-	# Enable Brazil Cable
-	#use brnet && echo "yes" || echo "no"
-	# Enable Switzerland Search
-	use ch && echo "yes" || echo "no"
-	# Enable Alternate Brittain
-	use uk_rt && echo "yes" || echo "no"
-	# Enable Alternate Brittain 2
-	use uk_bleb && echo "yes" || echo "no"
-	# Enable Belgium and Luxemburg
-	#use be && echo "yes" || echo "no"
-	#Enable Iceland
-	use is && echo "yes" || echo "no"
-	# Enable Italy
-	use it && echo "yes" || echo "no"
-	# Enable North America using DataDirect
-	use na_dd && echo "yes" || echo "no"
-	# Enable North America channel icons
-	use na_icons  && use na_dd && echo "yes" || echo "no"
-	# Enable Finland
-	use fi  && echo "yes" || echo "no"
-	# Enable Spain
-	#use es  && echo "yes" || echo "no"
-	# Enable Spain Digital
-	# use es_digital && echo "yes" || echo "no"
-	# Israel Temporary Disabled
-	# use il && echo "yes" || echo "no"
-	#echo "no"
-	# Enable Spain Alternatives
-	use es_laguiatv && echo "yes" || echo "no"
-	use es_miguiatv && echo "yes" || echo "no"
-	# Enable Netherlands
-	#use nl  && echo "yes" || echo "no"
-	# Enable Alternate Netherlands
-	#use nl_wolf  && echo "yes" || echo "no"
-	# Enable Hungary and Romania
-	use huro  && echo "yes" || echo "no"
-	# Enable Denmark
-	use dk && echo "yes" || echo "no"
-	# Enable Japan
-	#use jp  && echo "yes" || echo "no"
-	# Enable Sweden
-	use se_swedb  && echo "yes" || echo "no"
-	# Enable Croatia
-	use hr && echo "yes" || echo "no"
-	# Enable Norway Gfeed
-	use no_gf && echo "yes" || echo "no"
-	# Enable France
-	use fr  && echo "yes" || echo "no"
-	# Enable Norway
-	#use no  && echo "yes" || echo "no"
-	# Enable Portugal
-	use pt  && echo "yes" || echo "no"
-	# Enable South Africa
-	#use za  && echo "yes" || echo "no"
-	# Enable Europe epg
-	use eu_epg && echo "yes" || echo "no"
-	# Enable combiner
-	use tv_combiner && echo "yes" || echo "no"
-	# Enable GUI checking.
-	use tv_check && echo "yes" || echo "no"
-	# Enable CGI support
-	use tv_pick_cgi && echo "yes" || echo "no"
-	# Enable Estonia
-	use ee && echo "yes" || echo "no"
-	# Enable Reunion Island
-	use re && echo "yes" || echo "no"
-	# Enable Caledonie Island
-	#use nc && echo "yes" || echo "no"
-	# Enable North America DirecTV
-	use na_dtv && echo "yes" || echo "no"
+    # Enable Agentina
+    use ar && echo "yes" || echo "no"
+    # Enable Switzerland
+    use ch && echo "yes" || echo "no"
+    # Enable Latin America & Caribbean
+    use dtv_la && echo "yes" || echo "no"
+    # Enable UK and Ireland (Radio Times)
+    use uk_rt && echo "yes" || echo "no"
+    # Enable fast alternative grabber for the UK
+    use uk_bleb && echo "yes" || echo "no"
+    # Enable UK and Ireland using Atlas database
+    use uk_atlas && echo "yes" || echo "no"
+    # Enable UK and Ireland using TV Guide website
+    use uk_tvguide && echo "yes" || echo "no"
+    #Enable Iceland
+    use is && echo "yes" || echo "no"
+    # Enable Italy
+    use it && echo "yes" || echo "no"
+    # Enable Italy from DVB-S stream
+    use it_dvb && echo "yes" || echo "no"
+    # Enable North America using DataDirect
+    use na_dd && echo "yes" || echo "no"
+    # Enable Finland
+    use fi  && echo "yes" || echo "no"
+    # Enable Finland (Swedish)
+    use fi_sv  && echo "yes" || echo "no"
+    # Israel
+    use il && echo "yes" || echo "no"
+    # Enable Spain
+    use es_laguiatv && echo "yes" || echo "no"
+    # Enable Netherlands
+    use nl  && echo "yes" || echo "no"
+    # Enable Hungary, Romania, Slovakia, Czech Republic
+    use huro  && echo "yes" || echo "no"
+    # Enable Denmark (dr.dk)
+    use dk_dr && echo "yes" || echo "no"
+    # Enable Sweden
+    use se_swedb  && echo "yes" || echo "no"
+    # Enable Croatia
+    use hr && echo "yes" || echo "no"
+    # Enable Norway (gfeed.info)
+    use no_gfeed && echo "yes" || echo "no"
+    # Enable german speaking area (Egon zappt)
+    use eu_egon && echo "yes" || echo "no"
+    # Enable Sweden (tvzon.se)
+    use se_tvzon && echo "yes" || echo "no"
+    # Enable France
+    use fr  && echo "yes" || echo "no"
+    # Enable France (Kazer)
+    use fr_kazer  && echo "yes" || echo "no"
+    # Enable Portugal
+    use pt  && echo "yes" || echo "no"
+    # Enable Portugal (MEO)
+    use pt_meo  && echo "yes" || echo "no"
+    # Enable South Africa
+    use za  && echo "yes" || echo "no"
+    # Enable some European countries (epgdata.com)
+    use eu_epgdata && echo "yes" || echo "no"
+    # Enable combiner
+    use tv_combiner && echo "yes" || echo "no"
+    # Enable GUI checking.
+    use tv_check && echo "yes" || echo "no"
+    # Enable CGI support
+    use tv_pick_cgi && echo "yes" || echo "no"
+    # Enable North America (DirecTV)
+    use na_dtv && echo "yes" || echo "no"
+    # Enable Turkey (Digiturk)
+    use tr && echo "yes" || echo "no"
+    # Enable North America (TVMedia)
+    use na_tvmedia && echo "yes" || echo "no"
 }
 
 src_unpack() {
@@ -159,12 +147,16 @@ src_unpack() {
 	cd "${S}"
 }
 
-src_compile() {
+src_configure() {
 	sed -i "s:\$VERSION = '${PV}':\$VERSION = '${PVR}':" Makefile.PL || die
 
 	# latest per-module eclass seems to not allow a real use of pm_echovar,
 	# so instead of the default method below we're forced to skip perl-module_src_compile
-	pm_echovar=`make_config`
+	pm_echovar=$(make_config)
+	perl-module_src_configure || die "error configuring"
+}
+
+src_compile() {
 	perl-module_src_compile || die "error compiling"
 	#make_config | perl Makefile.PL || die "error configuring"
 	#make || die "error compiling"
@@ -194,13 +186,5 @@ pkg_postinst() {
 	if use tv_pick_cgi ; then
 		elog "To use tv_pick_cgi, please link it from /usr/bin/tv_pick_cgi"
 		elog "to where the ScriptAlias directive is configured."
-	fi
-	if use na_icons ; then
-		if use na_dd ; then
-			elog "na_icons set for na_dd grabber user."
-		else
-			elog "na_icons works only when na_dd is set, "
-			elog "otherwise it does nothing."
-		fi
 	fi
 }
