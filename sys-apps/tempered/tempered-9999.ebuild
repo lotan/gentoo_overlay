@@ -19,4 +19,5 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/fix_cmakelist.patch
+	epatch_user
 }
