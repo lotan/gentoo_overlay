@@ -7,6 +7,7 @@ EAPI=5
 inherit eutils games flag-o-matic subversion
 
 ESVN_REPO_URI="svn://svn.code.sf.net/p/ultrastardx/svn/trunk"
+#ESVN_REVISION=3088
 
 DESCRIPTION="A free and open source karaoke game"
 HOMEPAGE="http://ultrastardx.sourceforge.net/"
@@ -27,6 +28,14 @@ RDEPEND="dev-lang/fpc
    virtual/opengl
    virtual/glu
    dev-lang/lua"
+
+pkg_setup() {
+	filter-ldflags -Wl,--as-needed
+}
+
+src_prepare() {
+	epatch_user
+}
 
 src_configure() {
    egamesconf \
