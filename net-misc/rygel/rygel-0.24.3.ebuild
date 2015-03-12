@@ -57,9 +57,9 @@ DEPEND="${RDEPEND}
 src_prepare() {
 	# runs gst-plugins-scanner on run with triggers sandbox violation
 	# trying to open dri
-	sed -e 's/rygel-media-engine-test$(EXEEXT)//' \
-		-e 's/rygel-playbin-renderer-test$(EXEEXT)//' \
-		-i tests/Makefile.in || die
+#	sed -e 's/rygel-media-engine-test$(EXEEXT)//' \
+#		-e 's/rygel-playbin-renderer-test$(EXEEXT)//' \
+#		-i tests/Makefile.in || die
 
 	gnome2_src_prepare
 }
