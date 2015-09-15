@@ -1,9 +1,10 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-misc/rygel/rygel-0.22.3.ebuild,v 1.1 2014/09/04 15:29:57 pacho Exp $
+# $Id$
 
 EAPI="5"
 GCONF_DEBUG="no"
+GNOME2_LA_PUNT="yes"
 
 inherit gnome2 virtualx
 
@@ -13,7 +14,7 @@ HOMEPAGE="https://wiki.gnome.org/Projects/Rygel"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="X +sqlite tracker test transcode"
+IUSE="X +introspection +sqlite tracker test transcode"
 
 # The deps for tracker? and transcode? are just the earliest available
 # version at the time of writing this ebuild
@@ -24,17 +25,18 @@ RDEPEND="
 	>=media-libs/gupnp-dlna-0.9.4:2.0
 	media-libs/gstreamer:1.0
 	media-libs/gst-plugins-base:1.0
+	>=media-libs/libmediaart-0.7:2.0
 	media-plugins/gst-plugins-soup:1.0
 	>=net-libs/gssdp-0.13
 	>=net-libs/gupnp-0.19
 	>=net-libs/gupnp-av-0.12.4
 	>=net-libs/libsoup-2.44:2.4
 	>=sys-apps/util-linux-2.20
-	>=media-libs/libmediaart-0.7.0
 	x11-misc/shared-mime-info
+	introspection? ( >=dev-libs/gobject-introspection-1.33.4 )
 	sqlite? (
 		>=dev-db/sqlite-3.5:3
-		dev-libs/libunistring
+		dev-libs/libunistring:=
 	)
 	tracker? ( >=app-misc/tracker-0.16:= )
 	transcode? (
@@ -54,16 +56,6 @@ DEPEND="${RDEPEND}
 #	>=dev-lang/vala-0.22
 #   dev-libs/libxslt
 
-src_prepare() {
-	# runs gst-plugins-scanner on run with triggers sandbox violation
-	# trying to open dri
-#	sed -e 's/rygel-media-engine-test$(EXEEXT)//' \
-#		-e 's/rygel-playbin-renderer-test$(EXEEXT)//' \
-#		-i tests/Makefile.in || die
-
-	gnome2_src_prepare
-}
-
 src_configure() {
 	# We defined xsltproc because man pages are provided by upstream
 	# and we do not want to regenerate them automagically.
@@ -73,6 +65,7 @@ src_configure() {
 		--enable-mediathek-plugin \
 		--with-media-engine=gstreamer \
 		--enable-nls \
+		$(use_enable introspection) \
 		$(use_enable sqlite media-export-plugin) \
 		$(use_enable test tests) \
 		$(use_enable tracker tracker-plugin) \
