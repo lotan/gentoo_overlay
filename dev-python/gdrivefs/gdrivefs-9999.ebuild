@@ -30,6 +30,8 @@ RDEPEND="
 	>=dev-python/six-1.7.3"
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/GDriveFS-${PV}"
+
 src_prepare() {
 	epatch "${FILESDIR}"/exclude_all_tests.patch
 }

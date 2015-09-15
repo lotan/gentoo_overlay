@@ -1,12 +1,12 @@
-diff -Naur gdrivefs-9999.old/setup.py gdrivefs-9999/setup.py
---- gdrivefs-9999.old/setup.py	2014-08-18 14:11:33.868794920 +0200
-+++ gdrivefs-9999/setup.py	2014-08-18 14:13:52.492367271 +0200
-@@ -38,7 +38,7 @@
+diff -Naur GDriveFS-0.14.3.old/setup.py GDriveFS-0.14.3/setup.py
+--- GDriveFS-0.14.3.old/setup.py	2015-03-28 18:32:30.000000000 +0100
++++ GDriveFS-0.14.3/setup.py	2015-09-15 14:57:41.212503085 +0200
+@@ -36,7 +36,7 @@
      author_email='myselfasunder@gmail.com',
      url='https://github.com/dsoprea/GDriveFS',
      license='GPL 2',
--    packages=setuptools.find_packages(exclude=['dev','tests']),
-+    packages=setuptools.find_packages(exclude=['dev','tests', 'tests.*']),
+-    packages=setuptools.find_packages(exclude=['dev', 'tests']),
++    packages=setuptools.find_packages(exclude=['dev', 'tests', 'tests.*']),
      include_package_data=True,
-     zip_safe=False,
-     install_requires=install_requires,
+     package_data={
+         'gdrivefs': [
