@@ -1,6 +1,6 @@
 EAPI="5"
 
-inherit git-2 autotools
+inherit git-2 autotools eutils
 
 DESCRIPTION="Bridge between Ampache and DBus MediaServer client like Rygel."
 HOMEPAGE="https://github.com/lotan/ampache-mediaserver-interface"
@@ -16,5 +16,6 @@ RDEPEND=""
 DEPEND="dev-lang/vala"
 
 src_prepare() {
+	epatch_user
 	eautoreconf --install --force
 }
