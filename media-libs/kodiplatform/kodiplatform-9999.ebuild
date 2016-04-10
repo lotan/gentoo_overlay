@@ -4,12 +4,12 @@
 
 EAPI=5
 
-EGIT_REPO_URI="https://github.com/Pulse-Eight/platform.git"
-EGIT_BRANCH="master"
+EGIT_REPO_URI="https://github.com/xbmc/kodi-platform.git"
+EGIT_BRANCH="Jarvis"
 
 inherit git-r3 cmake-utils
 
-DESCRIPTION="Platform support library used by libCEC and binary add-ons for Kodi"
+DESCRIPTION="Kodi platform support library"
 HOMEPAGE="http://kodi.tv"
 SRC_URI=""
 
@@ -18,9 +18,12 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-src_configure() {
-	local mycmakeargs=(
-		-DBUILD_SHARED_LIBS=1
-	)
-	cmake-utils_src_configure
-}
+DEPEND="
+	media-tv/kodi
+	dev-libs/libp8-platform
+	dev-libs/tinyxml
+	"
+
+RDEPEND="
+	dev-libs/tinyxml
+	"

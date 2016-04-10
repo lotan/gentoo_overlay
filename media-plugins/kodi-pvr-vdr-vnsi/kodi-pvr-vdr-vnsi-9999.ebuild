@@ -4,12 +4,12 @@
 
 EAPI=5
 
-EGIT_REPO_URI="https://github.com/xbmc/kodi-platform.git"
-EGIT_BRANCH="master"
+EGIT_REPO_URI="https://github.com/kodi-pvr/pvr.vdr.vnsi.git"
+EGIT_BRANCH="Jarvis"
 
-inherit git-r3 cmake-utils
+inherit git-r3 cmake-utils kodi-addon
 
-DESCRIPTION="Kodi platform support library"
+DESCRIPTION="Kodi PVR addon VNSI"
 HOMEPAGE="http://kodi.tv"
 SRC_URI=""
 
@@ -20,10 +20,10 @@ IUSE=""
 
 DEPEND="
 	media-tv/kodi
-	dev-libs/platform
-	dev-libs/tinyxml
+	media-libs/kodiplatform
+	virtual/opengl
 	"
 
 RDEPEND="
-	dev-libs/tinyxml
+	virtual/opengl
 	"
