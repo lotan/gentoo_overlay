@@ -1,4 +1,4 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,20 +6,20 @@ EAPI="5"
 GCONF_DEBUG="no"
 GNOME2_LA_PUNT="yes"
 
-inherit gnome2 virtualx
+inherit gnome2 versionator virtualx
 
 DESCRIPTION="Rygel is an open source UPnP/DLNA MediaServer"
 HOMEPAGE="https://wiki.gnome.org/Projects/Rygel"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="X +introspection +sqlite tracker test transcode"
 
 # The deps for tracker? and transcode? are just the earliest available
 # version at the time of writing this ebuild
 RDEPEND="
-	>=dev-libs/glib-2.34:2
+	>=dev-libs/glib-2.40.0:2
 	>=dev-libs/libgee-0.8:0.8
 	>=dev-libs/libxml2-2.7:2
 	>=media-libs/gupnp-dlna-0.9.4:2.0
@@ -28,12 +28,12 @@ RDEPEND="
 	>=media-libs/libmediaart-0.7:2.0
 	media-plugins/gst-plugins-soup:1.0
 	>=net-libs/gssdp-0.13
-	>=net-libs/gupnp-0.19
+	>=net-libs/gupnp-0.20.14
 	>=net-libs/gupnp-av-0.12.4
 	>=net-libs/libsoup-2.44:2.4
 	>=sys-apps/util-linux-2.20
 	x11-misc/shared-mime-info
-	introspection? ( >=dev-libs/gobject-introspection-1.33.4 )
+	introspection? ( >=dev-libs/gobject-introspection-1.33.4:= )
 	sqlite? (
 		>=dev-db/sqlite-3.5:3
 		dev-libs/libunistring:=
@@ -57,7 +57,7 @@ DEPEND="${RDEPEND}
 #   dev-libs/libxslt
 
 src_configure() {
-	# We defined xsltproc because man pages are provided by upstream
+	# We set xsltproc because man pages are provided by upstream
 	# and we do not want to regenerate them automagically.
 	gnome2_src_configure \
 		XSLTPROC=$(type -P false) \
@@ -72,10 +72,13 @@ src_configure() {
 		$(use_with X ui)
 }
 
-src_install() {
-	gnome2_src_install
-	# Autostart file is not placed correctly, bug #402745
-	insinto /etc/xdg/autostart
-	doins "${D}"/usr/share/applications/rygel.desktop
-	rm "${D}"/usr/share/applications/rygel.desktop
+pkg_postinst() {
+	gnome2_pkg_postinst
+	if ! version_is_at_least 0.28.2-r1 ${REPLACING_VERSIONS}; then
+		elog "This version stops forcing the automatical starting of"
+		elog "rygel as upstream pretends. This way, it will honor the"
+		elog "user settings at Sharing section in gnome-control-center."
+		elog "If you desire to keep getting rygel autostarting always"
+		elog "you will need to configure your desktop to do it."
+	fi
 }
