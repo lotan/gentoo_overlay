@@ -4,11 +4,13 @@
 
 EAPI="5"
 
-inherit vdr-plugin-2 git-2
+inherit vdr-plugin-2 git-r3
 
 RESTRICT="test"
 
-EGIT_REPO_URI="git://projects.vdr-developer.org/vdr-plugin-softhddevice.git"
+#EGIT_REPO_URI="git://projects.vdr-developer.org/vdr-plugin-softhddevice.git"
+EGIT_REPO_URI="https://github.com/pesintta/vdr-plugin-softhddevice.git"
+EGIT_BRANCH="vpp_support"
 #EGIT_COMMIT="ee2311d25237b9828c1423505e5d4055a836414d"
 KEYWORDS=""
 
@@ -41,6 +43,8 @@ REQUIRED_USE="opengl? ( vaapi )
 
 VDR_CONFD_FILE="${FILESDIR}/confd-0.6.0"
 VDR_RCADDON_FILE="${FILESDIR}/rc-addon-0.6.0.sh"
+
+S="${WORKDIR}/${P}"
 
 pkg_setup() {
 	vdr-plugin-2_pkg_setup
