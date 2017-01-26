@@ -4,10 +4,12 @@
 
 EAPI=5
 
-inherit eutils games flag-o-matic subversion
+inherit eutils games flag-o-matic git-r3
 
-ESVN_REPO_URI="svn://svn.code.sf.net/p/ultrastardx/svn/trunk"
+#ESVN_REPO_URI="svn://svn.code.sf.net/p/ultrastardx/svn/trunk"
 #ESVN_REVISION=3088
+EGIT_REPO_URI="https://github.com/UltraStar-Deluxe/USDX.git"
+#EGIT_COMMIT="d2b3b2e0a78b0e8d93d183bf09d71e58ea58dfcc"
 
 DESCRIPTION="A free and open source karaoke game"
 HOMEPAGE="http://ultrastardx.sourceforge.net/"
@@ -17,14 +19,16 @@ SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE="debug libprojectM"
 
-RDEPEND="dev-lang/fpc
-   media-libs/sdl-image
-   media-libs/libsdl
-   media-libs/sdl-mixer
-   media-libs/sdl-ttf
+RDEPEND=">=dev-lang/fpc-3.0.0
+   media-libs/libsdl2
+   media-libs/sdl2-gfx
+   media-libs/sdl2-image
+   media-libs/sdl2-mixer
+   media-libs/sdl2-net
+   media-libs/sdl2-ttf
    libprojectM? ( media-libs/libprojectm )
    >=media-libs/portaudio-19_pre20071207
-   media-video/ffmpeg
+   >=media-video/ffmpeg-3.0.0
    virtual/opengl
    virtual/glu
    dev-lang/lua"
