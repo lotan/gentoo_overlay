@@ -28,7 +28,7 @@ RDEPEND=">=dev-lang/fpc-3.0.0
    media-libs/sdl2-ttf
    libprojectM? ( media-libs/libprojectm )
    >=media-libs/portaudio-19_pre20071207
-   >=media-video/ffmpeg-3.0.0
+   >=media-video/ffmpeg-2.8.0
    virtual/opengl
    virtual/glu
    dev-lang/lua"
