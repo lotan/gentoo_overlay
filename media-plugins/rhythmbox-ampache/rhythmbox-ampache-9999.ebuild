@@ -3,9 +3,9 @@
 
 EAPI="5"
 
-PYTHON_DEPEND="3"
+PYTHON_COMPAT=( python{2_7,3_4} )
 
-inherit git-2 distutils gnome2-utils
+inherit git-2 distutils-r1 gnome2-utils
 
 DESCRIPTION="Rhythmbox plugin to stream music from Ampache"
 HOMEPAGE="http://code.google.com/p/rhythmbox-ampache"
