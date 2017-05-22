@@ -1,6 +1,6 @@
-EAPI="2"
+EAPI="6"
 
-inherit cmake-utils eutils git-2 autotools
+inherit cmake-utils eutils git-r3 autotools
 
 EGIT_REPO_URI="git://github.com/edorfaus/TEMPered.git"
 DESCRIPTION="C library and program for reading the TEMPer family of thermometer
@@ -19,5 +19,5 @@ DEPEND="${RDEPEND}
 
 src_prepare() {
 	epatch "${FILESDIR}"/fix_cmakelist.patch
-	epatch_user
+	eapply_user
 }
