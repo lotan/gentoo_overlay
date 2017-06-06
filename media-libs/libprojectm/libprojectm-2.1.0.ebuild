@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: /var/cvsroot/gentoo-x86/media-libs/libprojectm/libprojectm-2.1.0.ebuild,v 1.1 2012/06/10 22:08:12 aballier Exp $
 
-EAPI=4
+EAPI=6
 
 inherit cmake-utils flag-o-matic eutils toolchain-funcs multilib
 
