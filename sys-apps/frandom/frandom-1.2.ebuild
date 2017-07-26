@@ -8,7 +8,7 @@ inherit linux-mod eutils
 
 DESCRIPTION="Fast kernel-land pseudo-random number generator using the RC4 algorithm"
 HOMEPAGE="http://billauer.co.il/frandom.html"
-SRC_URI="mirror://sourceforge/project/frandom//${P}.tar.gz"
+SRC_URI="http://www.billauer.co.il/download/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
