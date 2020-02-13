@@ -4,14 +4,14 @@
 
 EAPI="5"
 
-inherit vdr-plugin-2 git-r3
+inherit vdr-plugin-2 git-r3 eutils
 
 RESTRICT="test"
 
-#EGIT_REPO_URI="git://projects.vdr-developer.org/vdr-plugin-softhddevice.git"
-EGIT_REPO_URI="https://github.com/pesintta/vdr-plugin-softhddevice.git"
-EGIT_BRANCH="vpp_support"
-#EGIT_COMMIT="ee2311d25237b9828c1423505e5d4055a836414d"
+EGIT_REPO_URI="git://projects.vdr-developer.org/vdr-plugin-softhddevice.git"
+#EGIT_REPO_URI="https://github.com/pesintta/vdr-plugin-softhddevice.git"
+#EGIT_BRANCH="vpp_support"
+EGIT_COMMIT="6dfa88aecf1b5a4c5932ba278209d9f22676547f"
 KEYWORDS=""
 
 DESCRIPTION="VDR Plugin: Software and GPU emulated HD output device"
@@ -35,7 +35,9 @@ RDEPEND=">=media-video/vdr-2
 		virtual/ffmpeg[vdpau] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	x11-libs/xcb-util"
+	x11-libs/xcb-util
+	media-libs/glew
+	media-libs/glm"
 
 REQUIRED_USE="opengl? ( vaapi )
 			|| ( vaapi vdpau )
@@ -66,6 +68,8 @@ src_prepare() {
 	if has_version ">=media-video/ffmpeg-0.8"; then
 		BUILD_PARAMS+=" SWRESAMPLE=1"
 	fi
+
+	epatch ${FILESDIR}/48fbfa9f...3ed09d43.diff
 }
 
 src_install() {
